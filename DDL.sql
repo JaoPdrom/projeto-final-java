@@ -198,12 +198,18 @@ CREATE TABLE IF NOT EXISTS tb_pedido(
 );
 
 -- Tabelas Financeiras
+CREATE TABLE IF NOT EXISTS tb_statusDebito(
+    statusDeb_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    statusDeb_descricao VARCHAR(45) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS tb_debito(
     deb_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     deb_venda_id INT NOT NULL,
     deb_juros DOUBLE,
-    deb_status VARCHAR(45),
-    FOREIGN KEY (deb_venda_id) REFERENCES tb_venda(venda_id)
+    deb_status_id INT NOT NULL,
+    FOREIGN KEY (deb_venda_id) REFERENCES tb_venda(venda_id),
+    FOREIGN KEY (deb_status_id) REFERENCES tb_statusDebito(statusDeb_id)
 );
 
 CREATE TABLE IF NOT EXISTS td_despesa(
@@ -222,16 +228,42 @@ CREATE TABLE IF NOT EXISTS tb_infoEmpresa(
     FOREIGN KEY (emp_tel_id) REFERENCES tb_telefone (tel_id)
 );
 
+CREATE TABLE IF NOT EXISTS tb_provento(
+    provento_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    provento_descricao VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tb_desconto(
+    desconto_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    desconto_descricao VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS tb_holerite(
     holerite_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     holerite_periodo DATE NOT NULL,
-    holerite_proventos DOUBLE NOT NULL,
-    holerite_descontos DOUBLE NOT NULL,
     holerite_valor_liquido DOUBLE NOT NULL,
     holerite_fnc_id INT NOT NULL,
     holerite_infoEmpresa_emp_cnpj VARCHAR(14) NOT NULL,
     FOREIGN KEY (holerite_fnc_id) REFERENCES tb_funcionario(fnc_id),
-    FOREIGN KEY (holerite_infoEmpresa_emp_cnpj) REFERENCES tb_infoempresa(emp_cnpj)
+    FOREIGN KEY (holerite_infoEmpresa_emp_cnpj) REFERENCES tb_infoEmpresa(emp_cnpj)
+);
+
+CREATE TABLE IF NOT EXISTS tb_holeriteProvento(
+    holeriteProvento_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    holeriteProvento_holerite_id INT NOT NULL,
+    holeriteProvento_provento_id INT NOT NULL,
+    holeriteProvento_valor DOUBLE NOT NULL,
+    FOREIGN KEY (holeriteProvento_holerite_id) REFERENCES tb_holerite(holerite_id),
+    FOREIGN KEY (holeriteProvento_provento_id) REFERENCES tb_provento(provento_id)
+);
+
+CREATE TABLE IF NOT EXISTS tb_holeriteDesconto(
+    holeriteDesconto_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    holeriteDesconto_holerite_id INT NOT NULL,
+    holeriteDesconto_desconto_id INT NOT NULL,
+    holeriteDesconto_valor DOUBLE NOT NULL,
+    FOREIGN KEY (holeriteDesconto_holerite_id) REFERENCES tb_holerite(holerite_id),
+    FOREIGN KEY (holeriteDesconto_desconto_id) REFERENCES tb_desconto(desconto_id)
 );
 
 -- Tabelas de Log e Fórmulas
