@@ -3,13 +3,13 @@ package model.vo;
 public class PedidoVO {
     private int pedido_id;
     private StatusPedidoVO pedido_statusPedido;
-    private TipoEntrega pedido_tipoEntrega;
+    private TipoEntregaVO pedido_tipoEntrega;
     private VendaVO pedido_venda_id;
     private FuncionarioVO pedido_fnc_id;
 
     public PedidoVO() {}
 
-    public PedidoVO(int pedido_id, StatusPedidoVO pedido_statusPedido, TipoEntrega pedido_tipoEntrega, VendaVO pedido_venda_id, FuncionarioVO pedido_fnc_id) {
+    public PedidoVO(int pedido_id, StatusPedidoVO pedido_statusPedido, TipoEntregaVO pedido_tipoEntrega, VendaVO pedido_venda_id, FuncionarioVO pedido_fnc_id) {
         this.pedido_id = pedido_id;
         this.pedido_statusPedido = pedido_statusPedido;
         this.pedido_tipoEntrega = pedido_tipoEntrega;
@@ -33,11 +33,11 @@ public class PedidoVO {
         this.pedido_statusPedido = pedido_statusPedido;
     }
 
-    public TipoEntrega getPedido_tipoEntrega() {
+    public TipoEntregaVO getPedido_tipoEntrega() {
         return pedido_tipoEntrega;
     }
 
-    public void setPedido_tipoEntrega(TipoEntrega pedido_tipoEntrega) {
+    public void setPedido_tipoEntrega(TipoEntregaVO pedido_tipoEntrega) {
         this.pedido_tipoEntrega = pedido_tipoEntrega;
     }
 

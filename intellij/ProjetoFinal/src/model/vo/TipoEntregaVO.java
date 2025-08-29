@@ -1,12 +1,12 @@
 package model.vo;
 
-public class TipoEntrega {
+public class TipoEntregaVO {
     private int tipoEntrega_id;
     private String tipoEntrega_descricao;
 
-    public TipoEntrega() {}
+    public TipoEntregaVO() {}
 
-    public TipoEntrega(int tipoEntrega_id, String tipoEntrega_descricao) {
+    public TipoEntregaVO(int tipoEntrega_id, String tipoEntrega_descricao) {
         this.tipoEntrega_id = tipoEntrega_id;
         this.tipoEntrega_descricao = tipoEntrega_descricao;
     }

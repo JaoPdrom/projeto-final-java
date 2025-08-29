@@ -1,12 +1,12 @@
 package model.vo;
 
-public class TipoPagamento {
+public class TipoPagamentoVO {
     private int tipoPagamento_id;
     private String tipoPagamento_descricao;
 
-    public TipoPagamento() {}
+    public TipoPagamentoVO() {}
 
-    public TipoPagamento(int tipoPagamento_id, String tipoPagamento_descricao) {
+    public TipoPagamentoVO(int tipoPagamento_id, String tipoPagamento_descricao) {
         this.tipoPagamento_id = tipoPagamento_id;
         this.tipoPagamento_descricao = tipoPagamento_descricao;
     }

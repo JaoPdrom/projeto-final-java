@@ -6,6 +6,8 @@ public class CargoVO {
     private int car_id;
     private String cargo_descricao;
 
+    public CargoVO() {}
+
     public CargoVO(int car_id, String cargo_descricao) {
         this.car_id = car_id;
         this.cargo_descricao = cargo_descricao;

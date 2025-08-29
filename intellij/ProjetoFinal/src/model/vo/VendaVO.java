@@ -8,11 +8,11 @@ public class VendaVO {
     private PessoaVO venda_pes_cpf;
     private FuncionarioVO venda_func_cpf;
     private StatusVendaVO venda_statusVenda;
-    private TipoPagamento venda_tipoPagamento;
+    private TipoPagamentoVO venda_tipoPagamento;
 
     public VendaVO() {}
 
-    public VendaVO(int venda_id, Date venda_data, PessoaVO venda_pes_cpf, FuncionarioVO venda_func_cpf, StatusVendaVO venda_statusVenda, TipoPagamento venda_tipoPagamento) {
+    public VendaVO(int venda_id, Date venda_data, PessoaVO venda_pes_cpf, FuncionarioVO venda_func_cpf, StatusVendaVO venda_statusVenda, TipoPagamentoVO venda_tipoPagamento) {
         this.venda_id = venda_id;
         this.venda_data = venda_data;
         this.venda_pes_cpf = venda_pes_cpf;
@@ -61,11 +61,11 @@ public class VendaVO {
         this.venda_statusVenda = venda_statusVenda;
     }
 
-    public TipoPagamento getVenda_tipoPagamento() {
+    public TipoPagamentoVO getVenda_tipoPagamento() {
         return venda_tipoPagamento;
     }
 
-    public void setVenda_tipoPagamento(TipoPagamento venda_tipoPagamento) {
+    public void setVenda_tipoPagamento(TipoPagamentoVO venda_tipoPagamento) {
         this.venda_tipoPagamento = venda_tipoPagamento;
     }
 }
