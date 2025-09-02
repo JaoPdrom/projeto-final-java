@@ -22,7 +22,7 @@ public class PedidoDAO {
     private VendaDAO vendaDAO;
     private FuncionarioDAO funcionarioDAO;
 
-    public PedidoDAO(Connection con_pedido) throws SQLException {
+    public PedidoDAO(Connection con_pedido) throws SQLException{
         this.con_pedido = con_pedido;
         this.statusPedidoDAO = new StatusPedidoDAO(con_pedido);
         this.tipoEntregaDAO = new TipoEntregaDAO(con_pedido);
