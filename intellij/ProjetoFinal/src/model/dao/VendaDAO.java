@@ -113,4 +113,62 @@ public class VendaDAO {
         }
         return vendas;
     }
+
+    public List<VendaVO> buscarVendasPorCpf(String cpf) throws SQLException {
+        String sql = "SELECT * FROM tb_venda WHERE venda_pes_cpf = ?";
+        List<VendaVO> vendas = new ArrayList<>();
+        try (PreparedStatement pstmt = con_venda.prepareStatement(sql)) {
+            pstmt.setString(1, cpf);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    VendaVO venda = new VendaVO();
+                    venda.setVenda_id(rs.getInt("venda_id"));
+                    venda.setVenda_data(rs.getDate("venda_data"));
+
+                    // Mapeia o cliente, funcionario, status e tipo de pagamento
+                    PessoaDAO pessoaDAO = new PessoaDAO(con_venda);
+                    FuncionarioDAO funcionarioDAO = new FuncionarioDAO(con_venda);
+                    StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
+                    TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
+
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
+                    venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
+                    venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));
+
+                    vendas.add(venda);
+                }
+            }
+        }
+        return vendas;
+    }
+
+    public List<VendaVO> buscarVendasPorNomeCliente(String nome) throws SQLException {
+        String sql = "SELECT * FROM tb_venda v JOIN tb_pessoa p ON v.venda_pes_cpf = p.pes_cpf WHERE p.pes_nome LIKE ?";
+        List<VendaVO> vendas = new ArrayList<>();
+        try (PreparedStatement pstmt = con_venda.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + nome + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    VendaVO venda = new VendaVO();
+                    venda.setVenda_id(rs.getInt("venda_id"));
+                    venda.setVenda_data(rs.getDate("venda_data"));
+
+                    // Mapeia o cliente, funcionario, status e tipo de pagamento
+                    PessoaDAO pessoaDAO = new PessoaDAO(con_venda);
+                    FuncionarioDAO funcionarioDAO = new FuncionarioDAO(con_venda);
+                    StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
+                    TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
+
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
+                    venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
+                    venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));
+
+                    vendas.add(venda);
+                }
+            }
+        }
+        return vendas;
+    }
 }

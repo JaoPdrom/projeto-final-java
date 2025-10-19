@@ -27,7 +27,7 @@ public class FuncionarioDAO {
 
     // adicionar novo funcionario
     public int adicionarNovo(FuncionarioVO funcionario) throws SQLException {
-        // Primeiro, salva os dados da pessoa
+        // salva os dados da pessoa
         pessoaDAO.adicionarNovo(funcionario);
 
         String sql = "INSERT INTO tb_funcionario (fnc_dtContratacao, fnc_dtDemissao, fnc_salario, fnc_cargo_id, fnc_pes_cpf) VALUES (?, ?, ?, ?, ?)";
@@ -50,7 +50,7 @@ public class FuncionarioDAO {
 
     // update funcionario por id
     public void atualizar(FuncionarioVO funcionario) throws SQLException {
-        // Primeiro, atualiza os dados da pessoa
+        // atualiza os dados da pessoa
         pessoaDAO.atualizar(funcionario);
 
         String sql = "UPDATE tb_funcionario SET fnc_dtContratacao = ?, fnc_dtDemissao = ?, fnc_salario = ?, fnc_cargo_id = ? WHERE fnc_id = ?";
@@ -140,5 +140,49 @@ public class FuncionarioDAO {
             }
         }
         return funcionario;
+    }
+
+    public void deletarFnc(int id) throws SQLException {
+        // 1. Encontra o CPF do funcionário antes de deletar
+        FuncionarioVO funcionario = buscarPorId(id);
+        if (funcionario == null) {
+            System.out.println("Funcionário não encontrado.");
+            return;
+        }
+        String cpfPessoa = funcionario.getPes_cpf();
+
+        try {
+            con_fnc.setAutoCommit(false);
+
+            // deleta o funcionário da tabela tb_funcionario
+            String sqlFuncionario = "DELETE FROM tb_funcionario WHERE fnc_id = ?";
+            try (PreparedStatement stmtFuncionario = con_fnc.prepareStatement(sqlFuncionario)) {
+                stmtFuncionario.setInt(1, id);
+                stmtFuncionario.executeUpdate();
+            }
+
+            // 3 deleta a pessoa da tabela tb_pessoa
+            pessoaDAO.deletarCPF(cpfPessoa);
+
+            // confirma a transação
+            con_fnc.commit();
+            System.out.println("Funcionário e dados da pessoa deletados com sucesso.");
+
+        } catch (SQLException e) {
+            con_fnc.rollback();
+            throw e;
+        } finally {
+            // Restaura o modo de autocommit
+            con_fnc.setAutoCommit(true);
+        }
+    }
+
+    //deletar funcionario por cpf
+    public void deletarFncCpf(String cpf) throws SQLException {
+        String sql = "DELETE FROM tb_funcionario WHERE pes_cpf = ?";
+        try (PreparedStatement fnc_del_cpf = fnc_del_cpf.prepareStatement(sql)) {
+            fnc_del_cpf.setString(1, cpf);
+            fnc_del_cpf.executeUpdate();
+        }
     }
 }

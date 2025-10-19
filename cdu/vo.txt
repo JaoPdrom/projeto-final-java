@@ -1,0 +1,431 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class BairroVO {
+  + BairroVO(int, String): 
+  + BairroVO(): 
+  - bairro_id: int
+  - bairro_descricao: String
+   bairro_id: int
+   bairro_descricao: String
+}
+class CargoVO {
+  + CargoVO(int, String): 
+  + CargoVO(): 
+  - car_id: int
+  - cargo_descricao: String
+   cargo_descricao: String
+   car_id: int
+}
+class CidadeVO {
+  + CidadeVO(): 
+  + CidadeVO(int, String, EstadoVO): 
+  - cid_descricao: String
+  - cid_id: int
+  - estado: EstadoVO
+   estado: EstadoVO
+   cid_id: int
+   cid_descricao: String
+}
+class DebitoVO {
+  + DebitoVO(): 
+  + DebitoVO(int, VendaVO, Double, String): 
+  - deb_id: int
+  - deb_status: String
+  - deb_juros: Double
+  - deb_venda_id: VendaVO
+   deb_status: String
+   deb_venda_id: VendaVO
+   deb_juros: Double
+   deb_id: int
+}
+class DescontoVO {
+  + DescontoVO(): 
+  + DescontoVO(int, String): 
+  - desconto_id: int
+  - desconto_descricao: String
+   desconto_descricao: String
+   desconto_id: int
+}
+class DespesaVO {
+  + DespesaVO(): 
+  + DespesaVO(int, String, Date, double): 
+  - despesa_valor_pago: double
+  - despesa_descricao: String
+  - despesa_id: int
+  - despesa_dtRealizacao: Date
+   despesa_valor_pago: double
+   despesa_descricao: String
+   despesa_id: int
+   despesa_dtRealizacao: Date
+}
+class EndPostalVO {
+  + EndPostalVO(int, LogradouroVO, String, String, BairroVO, CidadeVO, EstadoVO): 
+  + EndPostalVO(): 
+  - endP_logradouro: LogradouroVO
+  - endP_cidade: CidadeVO
+  - endP_cep: String
+  - endP_nomeRua: String
+  - endP_bairro: BairroVO
+  - endP_id: int
+  - endP_estado: EstadoVO
+   endP_cidade: CidadeVO
+   endP_logradouro: LogradouroVO
+   endP_estado: EstadoVO
+   endP_bairro: BairroVO
+   endP_cep: String
+   endP_id: int
+   endP_nomeRua: String
+}
+class EnderecoVO {
+  + EnderecoVO(): 
+  + EnderecoVO(int, EndPostalVO, String, String): 
+  - end_id: int
+  - end_endP_id: EndPostalVO
+  - end_complemento: String
+  - end_numero: String
+   end_id: int
+   end_numero: String
+   end_endP_id: EndPostalVO
+   end_complemento: String
+}
+class EstadoVO {
+  + EstadoVO(): 
+  + EstadoVO(String, String): 
+  - est_sigla: String
+  - est_descricao: String
+   est_sigla: String
+   est_descricao: String
+}
+class EstoqueVO {
+  + EstoqueVO(): 
+  + EstoqueVO(int, Date, ProdutoVO, double, double, String, Date, FornecedorVO): 
+  - est_custo: double
+  - est_dtValidade: Date
+  - est_produto_id: ProdutoVO
+  - qtdTotal: double
+  - est_id: int
+  - est_forn_cnpj: FornecedorVO
+  - est_dtCompra: Date
+  - est_lote: String
+   est_id: int
+   est_lote: String
+   est_dtCompra: Date
+   est_produto_id: ProdutoVO
+   est_dtValidade: Date
+   est_custo: double
+   qtdTotal: double
+   est_forn_cnpj: FornecedorVO
+}
+class FormIngreVO {
+  + FormIngreVO(FormulaVO, ProdutoVO, double): 
+  + FormIngreVO(): 
+  - formIngre_produto_id: ProdutoVO
+  - formIngre_qtd: double
+  - formIngre_formula_id: FormulaVO
+   formIngre_formula_id: FormulaVO
+   formIngre_qtd: double
+   formIngre_produto_id: ProdutoVO
+}
+class FormulaVO {
+  + FormulaVO(): 
+  + FormulaVO(int, Date): 
+  - formula_id: int
+  - formula_dtValidade: Date
+   formula_id: int
+   formula_dtValidade: Date
+}
+class FornecedorVO {
+  + FornecedorVO(String, String, String): 
+  + FornecedorVO(): 
+  - forn_nomeFantasia: String
+  - forn_cnpj: String
+  - forn_razaoSocial: String
+   forn_razaoSocial: String
+   forn_cnpj: String
+   forn_nomeFantasia: String
+}
+class FuncionarioVO {
+  + FuncionarioVO(String, String, SexoVO, Date, String, List<TelefoneVO>, List<EnderecoVO>, int, Date, Date, double, CargoVO, PessoaVO): 
+  + FuncionarioVO(): 
+  - fnc_pes_cpf: PessoaVO
+  - fnc_cargo: CargoVO
+  - fnc_id: int
+  - fnc_dtContratacao: Date
+  - fnc_dtDemissao: Date
+  - fnc_salario: double
+   fnc_id: int
+   fnc_dtContratacao: Date
+   fnc_salario: double
+   fnc_cargo: CargoVO
+   fnc_pes_cpf: PessoaVO
+   fnc_dtDemissao: Date
+}
+class HoleriteDescontoVO {
+  + HoleriteDescontoVO(): 
+  + HoleriteDescontoVO(int, HoleriteVO, DescontoVO, double): 
+  - holeriteDesconto_id: int
+  - desconto: DescontoVO
+  - holerite: HoleriteVO
+  - holeriteDesconto_valor: double
+   holeriteDesconto_valor: double
+   holerite: HoleriteVO
+   holeriteDesconto_id: int
+   desconto: DescontoVO
+}
+class HoleriteProventoVO {
+  + HoleriteProventoVO(): 
+  + HoleriteProventoVO(int, HoleriteVO, ProventoVO, double): 
+  - holerite: HoleriteVO
+  - holeriteProvento_valor: double
+  - holeriteProvento_id: int
+  - provento: ProventoVO
+   holerite: HoleriteVO
+   provento: ProventoVO
+   holeriteProvento_id: int
+   holeriteProvento_valor: double
+}
+class HoleriteVO {
+  + HoleriteVO(): 
+  + HoleriteVO(int, Date, double, FuncionarioVO, InfoEmpresaVO, List<HoleriteProventoVO>, List<HoleriteDescontoVO>): 
+  - funcionario: FuncionarioVO
+  - descontos: List<HoleriteDescontoVO>
+  - infoEmpresa: InfoEmpresaVO
+  - proventos: List<HoleriteProventoVO>
+  - holerite_periodo: Date
+  - holerite_valor_liquido: double
+  - holerite_id: int
+   holerite_periodo: Date
+   holerite_id: int
+   descontos: List<HoleriteDescontoVO>
+   holerite_valor_liquido: double
+   proventos: List<HoleriteProventoVO>
+   infoEmpresa: InfoEmpresaVO
+   funcionario: FuncionarioVO
+}
+class InfoEmpresaVO {
+  + InfoEmpresaVO(): 
+  + InfoEmpresaVO(String, String, EnderecoVO, TelefoneVO): 
+  - emp_end_id: EnderecoVO
+  - emp_tel_id: TelefoneVO
+  - emp_nome: String
+  - emp_cnpj: String
+   emp_end_id: EnderecoVO
+   emp_cnpj: String
+   emp_tel_id: TelefoneVO
+   emp_nome: String
+}
+class ItemVendaVO {
+  + ItemVendaVO(): 
+  + ItemVendaVO(VendaVO, ProdutoVO, double, double): 
+  - itemVenda_venda_id: VendaVO
+  - itemVenda_preco: double
+  - itemVenda_produto_id: ProdutoVO
+  - itemVenda_qtd: double
+   itemVenda_produto_id: ProdutoVO
+   itemVenda_venda_id: VendaVO
+   itemVenda_preco: double
+   itemVenda_qtd: double
+}
+class LogVO {
+  + LogVO(): 
+  + LogVO(int, String, LocalDateTime, FuncionarioVO): 
+  - log_acao: String
+  - log_id: int
+  - log_fnc_id: int
+  - log_dataHora: LocalDateTime
+   log_fnc_id: int
+   log_acao: String
+   log_dataHora: LocalDateTime
+   log_id: int
+}
+class LogradouroVO {
+  + LogradouroVO(int, String): 
+  + LogradouroVO(): 
+  - logradouro_id: int
+  - logradouro_descricao: String
+   logradouro_descricao: String
+   logradouro_id: int
+}
+class PedidoVO {
+  + PedidoVO(int, StatusPedidoVO, TipoEntregaVO, VendaVO, FuncionarioVO): 
+  + PedidoVO(): 
+  - pedido_venda_id: VendaVO
+  - pedido_tipoEntrega: TipoEntregaVO
+  - pedido_id: int
+  - pedido_statusPedido: StatusPedidoVO
+  - pedido_fnc_id: FuncionarioVO
+   pedido_id: int
+   pedido_statusPedido: StatusPedidoVO
+   pedido_venda_id: VendaVO
+   pedido_fnc_id: FuncionarioVO
+   pedido_tipoEntrega: TipoEntregaVO
+}
+class PessoaVO {
+  + PessoaVO(): 
+  + PessoaVO(String, String, SexoVO, Date, String, List<TelefoneVO>, List<EnderecoVO>): 
+  - pes_sexo: SexoVO
+  - pes_nome: String
+  - endereco: List<EnderecoVO>
+  - pes_dt_nascimento: Date
+  - telefone: List<TelefoneVO>
+  - pes_cpf: String
+  - pes_email: String
+   pes_dt_nascimento: Date
+   pes_cpf: String
+   endereco: List<EnderecoVO>
+   pes_sexo: SexoVO
+   pes_nome: String
+   telefone: List<TelefoneVO>
+   pes_email: String
+}
+class ProdutoVO {
+  + ProdutoVO(int, String, Double, Double, TipoProdutoVO): 
+  + ProdutoVO(): 
+  - produto_qtdMin: Double
+  - produto_id: int
+  - produto_tipoPdt: TipoProdutoVO
+  - produto_qtdMax: Double
+  - produto_nome: String
+   produto_qtdMin: Double
+   produto_nome: String
+   produto_id: int
+   produto_qtdMax: Double
+   produto_tipoPdt: TipoProdutoVO
+}
+class ProventoVO {
+  + ProventoVO(int, String): 
+  + ProventoVO(): 
+  - provento_id: int
+  - provento_descricao: String
+   provento_id: int
+   provento_descricao: String
+}
+class SexoVO {
+  + SexoVO(int, String): 
+  + SexoVO(): 
+  - sex_id: int
+  - sex_descricao: String
+   sex_id: int
+   sex_descricao: String
+}
+class StatusDebitoVO {
+  + StatusDebitoVO(): 
+  + StatusDebitoVO(int, String): 
+  - statusDeb_descricao: String
+  - statusDeb_id: int
+   statusDeb_descricao: String
+   statusDeb_id: int
+}
+class StatusPedidoVO {
+  + StatusPedidoVO(int, String): 
+  + StatusPedidoVO(): 
+  - statusPedido_descricao: String
+  - statusPedido_id: int
+   statusPedido_id: int
+   statusPedido_descricao: String
+}
+class StatusVendaVO {
+  + StatusVendaVO(): 
+  + StatusVendaVO(int, String): 
+  - statusVenda_descricao: String
+  - statusVenda_id: int
+   statusVenda_id: int
+   statusVenda_descricao: String
+}
+class TelefoneVO {
+  + TelefoneVO(): 
+  + TelefoneVO(int, String, String, String, String): 
+  - tel_ddd: String
+  - tel_pes_cpf: String
+  - tel_codPais: String
+  - tel_numero: String
+  - tel_id: int
+   tel_pes_cpf: String
+   tel_ddd: String
+   tel_codPais: String
+   tel_numero: String
+   tel_id: int
+}
+class TipoEntregaVO {
+  + TipoEntregaVO(): 
+  + TipoEntregaVO(int, String): 
+  - tipoEntrega_descricao: String
+  - tipoEntrega_id: int
+   tipoEntrega_descricao: String
+   tipoEntrega_id: int
+}
+class TipoPagamentoVO {
+  + TipoPagamentoVO(int, String): 
+  + TipoPagamentoVO(): 
+  - tipoPagamento_id: int
+  - tipoPagamento_descricao: String
+   tipoPagamento_descricao: String
+   tipoPagamento_id: int
+}
+class TipoProdutoVO {
+  + TipoProdutoVO(int, String): 
+  + TipoProdutoVO(): 
+  - tipoPdt_id: int
+  - tipoPdt_descricao: String
+   tipoPdt_descricao: String
+   tipoPdt_id: int
+}
+class VendaVO {
+  + VendaVO(int, Date, PessoaVO, FuncionarioVO, StatusVendaVO, TipoPagamentoVO): 
+  + VendaVO(): 
+  - venda_data: Date
+  - venda_func_cpf: FuncionarioVO
+  - venda_tipoPagamento: TipoPagamentoVO
+  - venda_pes_cpf: PessoaVO
+  - venda_statusVenda: StatusVendaVO
+  - venda_id: int
+   venda_data: Date
+   venda_pes_cpf: PessoaVO
+   venda_func_cpf: FuncionarioVO
+   venda_id: int
+   venda_tipoPagamento: TipoPagamentoVO
+   venda_statusVenda: StatusVendaVO
+}
+
+CidadeVO           "1" *-[#595959,plain]-> "estado\n1" EstadoVO           
+DebitoVO           "1" *-[#595959,plain]-> "deb_venda_id\n1" VendaVO            
+EndPostalVO        "1" *-[#595959,plain]-> "endP_bairro\n1" BairroVO           
+EndPostalVO        "1" *-[#595959,plain]-> "endP_cidade\n1" CidadeVO           
+EndPostalVO        "1" *-[#595959,plain]-> "endP_estado\n1" EstadoVO           
+EndPostalVO        "1" *-[#595959,plain]-> "endP_logradouro\n1" LogradouroVO       
+EnderecoVO         "1" *-[#595959,plain]-> "end_endP_id\n1" EndPostalVO        
+EstoqueVO          "1" *-[#595959,plain]-> "est_forn_cnpj\n1" FornecedorVO       
+EstoqueVO          "1" *-[#595959,plain]-> "est_produto_id\n1" ProdutoVO          
+FormIngreVO        "1" *-[#595959,plain]-> "formIngre_formula_id\n1" FormulaVO          
+FormIngreVO        "1" *-[#595959,plain]-> "formIngre_produto_id\n1" ProdutoVO          
+FuncionarioVO      "1" *-[#595959,plain]-> "fnc_cargo\n1" CargoVO            
+FuncionarioVO       -[#000082,plain]-^  PessoaVO           
+FuncionarioVO      "1" *-[#595959,plain]-> "fnc_pes_cpf\n1" PessoaVO           
+HoleriteDescontoVO "1" *-[#595959,plain]-> "desconto\n1" DescontoVO         
+HoleriteDescontoVO "1" *-[#595959,plain]-> "holerite\n1" HoleriteVO         
+HoleriteProventoVO "1" *-[#595959,plain]-> "holerite\n1" HoleriteVO         
+HoleriteProventoVO "1" *-[#595959,plain]-> "provento\n1" ProventoVO         
+HoleriteVO         "1" *-[#595959,plain]-> "funcionario\n1" FuncionarioVO      
+HoleriteVO         "1" *-[#595959,plain]-> "descontos\n*" HoleriteDescontoVO 
+HoleriteVO         "1" *-[#595959,plain]-> "proventos\n*" HoleriteProventoVO 
+HoleriteVO         "1" *-[#595959,plain]-> "infoEmpresa\n1" InfoEmpresaVO      
+InfoEmpresaVO      "1" *-[#595959,plain]-> "emp_end_id\n1" EnderecoVO         
+InfoEmpresaVO      "1" *-[#595959,plain]-> "emp_tel_id\n1" TelefoneVO         
+ItemVendaVO        "1" *-[#595959,plain]-> "itemVenda_produto_id\n1" ProdutoVO          
+ItemVendaVO        "1" *-[#595959,plain]-> "itemVenda_venda_id\n1" VendaVO            
+PedidoVO           "1" *-[#595959,plain]-> "pedido_fnc_id\n1" FuncionarioVO      
+PedidoVO           "1" *-[#595959,plain]-> "pedido_statusPedido\n1" StatusPedidoVO     
+PedidoVO           "1" *-[#595959,plain]-> "pedido_tipoEntrega\n1" TipoEntregaVO      
+PedidoVO           "1" *-[#595959,plain]-> "pedido_venda_id\n1" VendaVO            
+PessoaVO           "1" *-[#595959,plain]-> "endereco\n*" EnderecoVO         
+PessoaVO           "1" *-[#595959,plain]-> "pes_sexo\n1" SexoVO             
+PessoaVO           "1" *-[#595959,plain]-> "telefone\n*" TelefoneVO         
+ProdutoVO          "1" *-[#595959,plain]-> "produto_tipoPdt\n1" TipoProdutoVO      
+VendaVO            "1" *-[#595959,plain]-> "venda_func_cpf\n1" FuncionarioVO      
+VendaVO            "1" *-[#595959,plain]-> "venda_pes_cpf\n1" PessoaVO           
+VendaVO            "1" *-[#595959,plain]-> "venda_statusVenda\n1" StatusVendaVO      
+VendaVO            "1" *-[#595959,plain]-> "venda_tipoPagamento\n1" TipoPagamentoVO
+@enduml

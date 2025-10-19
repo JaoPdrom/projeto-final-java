@@ -1,0 +1,311 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class BairroDAO {
+  + BairroDAO(Connection): 
+  + buscarPorId(int): BairroVO
+  + buscarPorDescricao(String): BairroVO
+  + atualizarPorId(BairroVO): void
+  + atualizarPorNome(String, String): void
+  + adicionarNovo(BairroVO): int
+}
+class CargoDAO {
+  + CargoDAO(Connection): 
+  + atualizarPorId(CargoVO): void
+  + buscarPorNome(String): CargoVO
+  + buscarPorId(int): CargoVO
+  + adicionarNovo(CargoVO): int
+  + buscarTodos(): List<CargoVO>
+  + atualizarPorNome(String, String): void
+}
+class CidadeDAO {
+  + CidadeDAO(Connection): 
+  + buscarPorId(int): CidadeVO
+  + buscarPorNome(String): CidadeVO
+  + atualizarCidade(CidadeVO): void
+  + adicionarCidade(CidadeVO): int
+  + atualizarCidadePorNome(String, String): void
+}
+class ClienteDAO {
+  + ClienteDAO(Connection): 
+  + adicionarNovo(PessoaVO): void
+  + atualizar(PessoaVO): void
+}
+class ConexaoDAO {
+  + ConexaoDAO(): 
+   conexao: Connection
+}
+class DescontoDAO {
+  + DescontoDAO(Connection): 
+  + buscarPorDescricao(String): DescontoVO
+  + adicionarNovo(DescontoVO): int
+  + atualizarPorDescricao(String, String): void
+  + atualizarPorId(DescontoVO): void
+  + buscarPorId(int): DescontoVO
+}
+class DespesaDAO {
+  + DespesaDAO(Connection): 
+  + atualizarPorId(DespesaVO): void
+  + buscarPorDescricao(String): DespesaVO
+  + atualizarPorDescricao(String, String): void
+  + buscarPorId(int): DespesaVO
+  + adicionarNovo(DespesaVO): int
+}
+class EndPostalDAO {
+  + EndPostalDAO(Connection): 
+  + atualizar(EndPostalVO): void
+  + adicionarNovo(EndPostalVO): int
+  + buscarPorId(int): EndPostalVO
+  + atualizarPorNomeRua(String, EndPostalVO): void
+  + buscarPorCep(String): EndPostalVO
+}
+class EnderecoDAO {
+  + EnderecoDAO(Connection): 
+  + buscarPorId(int): EnderecoVO
+  + adicionarNovo(EnderecoVO): int
+}
+class EstadoDAO {
+  + EstadoDAO(Connection): 
+  + addEstado(EstadoVO): String
+  + buscarPorNome(String): EstadoVO
+  + attSexoNome(String, String): void
+  + buscarPorSigla(String): EstadoVO
+  + atualizarEstado(EstadoVO): void
+}
+class EstoqueDAO {
+  + EstoqueDAO(Connection): 
+  + buscarPorId(int): EstoqueVO
+  + atualizarPorId(EstoqueVO): void
+  + adicionarNovo(EstoqueVO): int
+  + atualizarPorLote(String, EstoqueVO): void
+  + buscarPorLote(String): EstoqueVO
+}
+class FormIngreDAO {
+  + FormIngreDAO(Connection): 
+  + buscarPorId(int, int): FormIngreVO
+  + atualizar(FormIngreVO): void
+  + buscarPorFormula(int): List<FormIngreVO>
+  + adicionarNovo(FormIngreVO): void
+}
+class FormulaDAO {
+  + FormulaDAO(Connection): 
+  + atualizarPorId(FormulaVO): void
+  + adicionarNovo(FormulaVO): int
+  + buscarPorId(int): FormulaVO
+}
+class FornecedorDAO {
+  + FornecedorDAO(Connection): 
+  + buscarPorCnpj(String): FornecedorVO
+  + atualizarPorCnpj(FornecedorVO): void
+  + adicionarNovo(FornecedorVO): void
+  + atualizarPorNome(String, FornecedorVO): void
+  + buscarPorNome(String): FornecedorVO
+}
+class FuncionarioDAO {
+  + FuncionarioDAO(Connection): 
+  + atualizar(FuncionarioVO): void
+  + buscarPorId(int): FuncionarioVO
+  + atualizarPorCpf(FuncionarioVO): void
+  + adicionarNovo(FuncionarioVO): int
+  + buscarPorCpf(String): FuncionarioVO
+}
+class HoleriteDAO {
+  + HoleriteDAO(Connection): 
+  + adicionarNovo(HoleriteVO): int
+  + buscarPorId(int): HoleriteVO
+  + atualizarPorId(HoleriteVO): void
+  + buscarPorFuncionario(int): List<HoleriteVO>
+}
+class HoleriteDescontoDAO {
+  + HoleriteDescontoDAO(Connection): 
+  + adicionarNovo(HoleriteDescontoVO): void
+  + atualizar(HoleriteDescontoVO): void
+  + buscarPorHolerite(int): List<HoleriteDescontoVO>
+  + buscarPorId(int, int): HoleriteDescontoVO
+}
+class HoleriteProventoDAO {
+  + HoleriteProventoDAO(Connection): 
+  + atualizar(HoleriteProventoVO): void
+  + adicionarNovo(HoleriteProventoVO): void
+  + buscarPorHolerite(int): List<HoleriteProventoVO>
+  + buscarPorId(int, int): HoleriteProventoVO
+}
+class InfoEmpresaDAO {
+  + InfoEmpresaDAO(Connection): 
+  + atualizarPorNome(String, String): void
+  + buscarPorCnpj(String): InfoEmpresaVO
+  + adicionarNovo(InfoEmpresaVO): String
+  + atualizarPorCnpj(InfoEmpresaVO): void
+}
+class ItemVendaDAO {
+  + ItemVendaDAO(Connection): 
+  + adicionarNovo(ItemVendaVO): void
+  + buscarPorVenda(int): List<ItemVendaVO>
+  + buscarPorId(int, int): ItemVendaVO
+  + atualizarItemVenda(ItemVendaVO): void
+}
+class LogDAO {
+  + LogDAO(Object): 
+  + registrarAcao(LogVO): void
+}
+class LogradouroDAO {
+  + LogradouroDAO(Connection): 
+  + buscarPorId(int): LogradouroVO
+  + atualizarPorId(LogradouroVO): void
+  + adicionarNovo(LogradouroVO): int
+  + buscarPorDescricao(String): LogradouroVO
+  + atualizarPorDescricao(String, String): void
+}
+class PedidoDAO {
+  + PedidoDAO(Connection): 
+  + atualizar(PedidoVO): void
+  + adicionarNovo(PedidoVO): int
+  + buscarPorId(int): PedidoVO
+  + buscarPorFuncionario(int): List<PedidoVO>
+}
+class PessoaDAO {
+  + PessoaDAO(Connection): 
+  + buscarPorNome(String): List<PessoaVO>
+  + adicionarNovo(PessoaVO): void
+  + atualizar(PessoaVO): void
+  + buscarPorCpf(String): PessoaVO
+  + deletar(PessoaVO): void
+}
+class ProdutoDAO {
+  + ProdutoDAO(Connection): 
+  + atualizarPorNome(String, ProdutoVO): void
+  + buscarPorId(int): ProdutoVO
+  + atualizarPorId(ProdutoVO): void
+  + buscarPorNome(String): ProdutoVO
+  + adicionarNovo(ProdutoVO): int
+}
+class ProventoDAO {
+  + ProventoDAO(Connection): 
+  + buscarPorDescricao(String): ProventoVO
+  + atualizarPorId(ProventoVO): void
+  + adicionarNovo(ProventoVO): int
+  + atualizarPorDescricao(String, String): void
+  + buscarPorId(int): ProventoVO
+}
+class SexoDAO {
+  + SexoDAO(Connection): 
+  + adicionarNovo(SexoVO): int
+  + atualizarPorDescricao(String, SexoVO): void
+  + buscarPorId(int): SexoVO
+  + buscarPorDescricao(String): SexoVO
+  + atualizarPorId(SexoVO): void
+}
+class StatusDebitoDAO {
+  + StatusDebitoDAO(Connection): 
+  + atualizarPorDescricao(String, StatusDebitoVO): void
+  + buscarPorDescricao(String): StatusDebitoVO
+  + adicionarNovo(StatusDebitoVO): int
+  + atualizarPorId(StatusDebitoVO): void
+  + buscarPorId(int): StatusDebitoVO
+}
+class StatusPedidoDAO {
+  + StatusPedidoDAO(Connection): 
+  + adicionarNovo(StatusPedidoVO): int
+  + atualizarPorDescricao(String, StatusPedidoVO): void
+  + buscarPorId(int): StatusPedidoVO
+  + atualizarPorId(StatusPedidoVO): void
+  + buscarPorDescricao(String): StatusPedidoVO
+}
+class StatusVendaDAO {
+  + StatusVendaDAO(Connection): 
+  + atualizarPorId(StatusVendaVO): void
+  + buscarPorNome(String): StatusVendaVO
+  + atualizarPorNome(String, String): void
+  + adicionarNovo(StatusVendaVO): int
+  + buscarPorId(int): StatusVendaVO
+}
+class TelefoneDAO {
+  + TelefoneDAO(Connection): 
+  + buscarPorCpf(String): List<TelefoneVO>
+  + adicionarNovo(TelefoneVO): int
+  + atualizarPorNumero(String, String): void
+  + buscarPorId(int): TelefoneVO
+  + atualizarPorId(TelefoneVO): void
+}
+class TipoEntregaDAO {
+  + TipoEntregaDAO(Connection): 
+  + buscarPorId(int): TipoEntregaVO
+  + buscarPorDescricao(String): TipoEntregaVO
+  + atualizarPorDescricao(String, TipoEntregaVO): void
+  + adicionarNovo(TipoEntregaVO): int
+  + atualizarPorId(TipoEntregaVO): void
+}
+class TipoPagamentoDAO {
+  + TipoPagamentoDAO(Connection): 
+  + atualizarPorId(TipoPagamentoVO): void
+  + atualizarPorNome(String, String): void
+  + adicionarNovo(TipoPagamentoVO): int
+  + buscarPorId(int): TipoPagamentoVO
+  + buscarPorNome(String): TipoPagamentoVO
+}
+class TipoProdutoDAO {
+  + TipoProdutoDAO(Connection): 
+  + adicionarNovo(TipoProdutoVO): int
+  + atualizarPorNome(String, String): void
+  + buscarPorId(int): TipoProdutoVO
+  + buscarPorNome(String): TipoProdutoVO
+  + atualizarPorId(TipoProdutoVO): void
+}
+class VendaDAO {
+  + VendaDAO(Connection): 
+  + adicionarNovo(VendaVO): int
+  + buscarPorCpf(String): List<VendaVO>
+  + atualizarPorId(VendaVO): void
+  + buscarPorId(int): VendaVO
+}
+
+ClienteDAO           -[#000082,plain]-^  PessoaDAO           
+EndPostalDAO        "1" *-[#595959,plain]-> "bairroDAO\n1" BairroDAO           
+EndPostalDAO         -[#595959,dashed]->  BairroDAO           : "«create»"
+EndPostalDAO        "1" *-[#595959,plain]-> "cidadeDAO\n1" CidadeDAO           
+EndPostalDAO         -[#595959,dashed]->  CidadeDAO           : "«create»"
+EndPostalDAO        "1" *-[#595959,plain]-> "estadoDAO\n1" EstadoDAO           
+EndPostalDAO         -[#595959,dashed]->  EstadoDAO           : "«create»"
+EndPostalDAO        "1" *-[#595959,plain]-> "logradouroDAO\n1" LogradouroDAO       
+EndPostalDAO         -[#595959,dashed]->  LogradouroDAO       : "«create»"
+EnderecoDAO          -[#595959,dashed]->  BairroDAO           : "«create»"
+EnderecoDAO         "1" *-[#595959,plain]-> "bairroDAO\n1" BairroDAO           
+EnderecoDAO          -[#595959,dashed]->  CidadeDAO           : "«create»"
+EnderecoDAO         "1" *-[#595959,plain]-> "cidadeDAO\n1" CidadeDAO           
+EnderecoDAO          -[#595959,dashed]->  EndPostalDAO        : "«create»"
+EnderecoDAO          -[#595959,dashed]->  EstadoDAO           : "«create»"
+EnderecoDAO         "1" *-[#595959,plain]-> "estadoDAO\n1" EstadoDAO           
+EnderecoDAO         "1" *-[#595959,plain]-> "logradouroDAO\n1" LogradouroDAO       
+EnderecoDAO          -[#595959,dashed]->  LogradouroDAO       : "«create»"
+EstoqueDAO           -[#595959,dashed]->  FornecedorDAO       : "«create»"
+EstoqueDAO          "1" *-[#595959,plain]-> "fornecedorDAO\n1" FornecedorDAO       
+EstoqueDAO          "1" *-[#595959,plain]-> "produtoDAO\n1" ProdutoDAO          
+EstoqueDAO           -[#595959,dashed]->  ProdutoDAO          : "«create»"
+FuncionarioDAO       -[#595959,dashed]->  CargoDAO            : "«create»"
+FuncionarioDAO      "1" *-[#595959,plain]-> "cargoDAO\n1" CargoDAO            
+FuncionarioDAO       -[#595959,dashed]->  PessoaDAO           : "«create»"
+FuncionarioDAO      "1" *-[#595959,plain]-> "pessoaDAO\n1" PessoaDAO           
+HoleriteDAO          -[#595959,dashed]->  FuncionarioDAO      : "«create»"
+HoleriteDAO          -[#595959,dashed]->  InfoEmpresaDAO      : "«create»"
+HoleriteDescontoDAO  -[#595959,dashed]->  DescontoDAO         : "«create»"
+HoleriteDescontoDAO  -[#595959,dashed]->  HoleriteDAO         : "«create»"
+HoleriteProventoDAO  -[#595959,dashed]->  HoleriteDAO         : "«create»"
+HoleriteProventoDAO  -[#595959,dashed]->  ProventoDAO         : "«create»"
+PedidoDAO            -[#595959,dashed]->  FuncionarioDAO      : "«create»"
+PedidoDAO           "1" *-[#595959,plain]-> "funcionarioDAO\n1" FuncionarioDAO      
+PedidoDAO           "1" *-[#595959,plain]-> "statusPedidoDAO\n1" StatusPedidoDAO     
+PedidoDAO            -[#595959,dashed]->  StatusPedidoDAO     : "«create»"
+PedidoDAO            -[#595959,dashed]->  TipoEntregaDAO      : "«create»"
+PedidoDAO           "1" *-[#595959,plain]-> "tipoEntregaDAO\n1" TipoEntregaDAO      
+PedidoDAO           "1" *-[#595959,plain]-> "vendaDAO\n1" VendaDAO            
+PedidoDAO            -[#595959,dashed]->  VendaDAO            : "«create»"
+PessoaDAO           "1" *-[#595959,plain]-> "sexoDAO\n1" SexoDAO             
+PessoaDAO            -[#595959,dashed]->  SexoDAO             : "«create»"
+ProdutoDAO           -[#595959,dashed]->  TipoProdutoDAO      : "«create»"
+VendaDAO             -[#595959,dashed]->  FuncionarioDAO      : "«create»"
+VendaDAO             -[#595959,dashed]->  PessoaDAO           : "«create»"
+VendaDAO             -[#595959,dashed]->  StatusVendaDAO      : "«create»"
+VendaDAO             -[#595959,dashed]->  TipoPagamentoDAO    : "«create»"
+@enduml
