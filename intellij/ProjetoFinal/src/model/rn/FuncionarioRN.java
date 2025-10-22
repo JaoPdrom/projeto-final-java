@@ -27,74 +27,54 @@ public class FuncionarioRN {
 
     public FuncionarioRN() {}
 
-    public void adicionarFuncionario(FuncionarioVO funcionario, int funcionarioID) throws Exception {
+    public void adicionarFuncionario(FuncionarioVO funcionario) throws Exception {
         Connection conn = null;
 
         try {
-            // Abre a conexao e inicia a transacao
             conn = ConexaoDAO.getConexao();
             conn.setAutoCommit(false);
 
-            // Injeta a conexao nos daos
             this.funcionarioDAO = new FuncionarioDAO(conn);
-            this.logDAO = new LogDAO(conn);
             this.pessoaDAO = new PessoaDAO(conn);
 
-            // 1. Validacao de campos
-            if (funcionario.getPes_cpf() == null || funcionario.getPes_cpf().isEmpty()) {
-                throw new Exception("CPF eh um campo obrigatorio.");
-            }
-            if (funcionario.getPes_nome() == null || funcionario.getPes_nome().isEmpty()) {
-                throw new Exception("Nome eh um campo obrigatorio.");
-            }
+            // 🔹 1️⃣ Validações básicas
+            if (funcionario.getPes_cpf() == null || funcionario.getPes_cpf().isEmpty())
+                throw new Exception("CPF é obrigatório.");
+            if (funcionario.getPes_nome() == null || funcionario.getPes_nome().isEmpty())
+                throw new Exception("Nome é obrigatório.");
+            if (funcionario.getPes_sexo() == null || funcionario.getPes_sexo().getSex_id() == 0)
+                throw new Exception("Sexo inválido ou não informado.");
 
-            // 2. Verifica se a pessoa ja esta cadastrada
+            // 🔹 2️⃣ Verifica se a pessoa já existe no banco
             PessoaVO pessoaExistente = pessoaDAO.buscarPorCpf(funcionario.getPes_cpf());
 
-            if (pessoaExistente != null) { // Se a pessoa ja existe, atualiza os dados
-                pessoaDAO.atualizar(funcionario);
-            } else { // Se a pessoa nao existe, adiciona uma nova
+            if (pessoaExistente == null) {
+                // Pessoa não existe — então adiciona
+                System.out.println("Inserindo nova pessoa com CPF: " + funcionario.getPes_cpf());
                 pessoaDAO.adicionarNovo(funcionario);
+            } else {
+                // Pessoa já existe — opcionalmente atualiza dados
+                System.out.println("Pessoa já existe, atualizando cadastro: " + funcionario.getPes_cpf());
+                pessoaDAO.atualizar(funcionario);
             }
 
-            // 3. Adiciona o funcionario
+            // 🔹 3️⃣ Agora adiciona o funcionário
+            System.out.println("Adicionando funcionário vinculado ao CPF: " + funcionario.getPes_cpf());
             funcionarioDAO.adicionarNovo(funcionario);
 
-            // 4. Registra a acao no log
-            LogVO log = new LogVO();
-            log.setLog_acao("Funcionario adicionado: " + funcionario.getPes_nome());
-            log.setLog_fnc_id(funcionarioID);
-            log.setLog_dataHora(java.time.LocalDateTime.now());
-            logDAO.registrarAcao(log);
-
-            conn.commit(); // Executa a transacao
+            conn.commit();
+            System.out.println("✅ Transação concluída com sucesso.");
 
         } catch (Exception e) {
-            if (conn != null) {
-                conn.rollback(); // Desfaz a transacao em caso de erro
-            }
-            // 5. Registra o erro no log
-            LogVO logErro = new LogVO();
-            logErro.setLog_acao("ERRO: " + e.getMessage());
-            logErro.setLog_fnc_id(funcionarioID);
-            logErro.setLog_dataHora(java.time.LocalDateTime.now());
-            try {
-                logDAO.registrarAcao(logErro);
-            } catch (SQLException ex) {
-                System.err.println("Erro ao registrar log de erro: " + ex.getMessage());
-            }
-
-            throw new Exception("Erro ao adicionar funcionario: " + e.getMessage());
+            if (conn != null) conn.rollback();
+            throw new Exception("Erro ao adicionar funcionário: " + e.getMessage());
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
-            }
+            if (conn != null) conn.close();
         }
     }
+
+
+
 
     // att funcionario
     public void atualizarFuncionario(FuncionarioVO funcionario, int funcionarioID) throws Exception {
@@ -175,8 +155,8 @@ public class FuncionarioRN {
             }
 
             // 2. Deleta o funcionario
-            funcionarioDAO.deletarFnc();
-            pessoaDAO.deletar(cpf);
+            funcionarioDAO.deletarFnc(funcionarioID);
+            pessoaDAO.deletarPesCPF(cpf);
 
             // 3. Registra a acao no log
             LogVO log = new LogVO();

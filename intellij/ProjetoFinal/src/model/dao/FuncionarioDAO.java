@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,11 @@ public class FuncionarioDAO {
 
         String sql = "INSERT INTO tb_funcionario (fnc_dtContratacao, fnc_dtDemissao, fnc_salario, fnc_cargo_id, fnc_pes_cpf) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement fnc_add = con_fnc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            fnc_add.setDate(1, new Date(funcionario.getFnc_dtContratacao().getTime()));
-            fnc_add.setDate(2, null); // fnc_dtDemissao é nulo no cadastro inicial
+
+            fnc_add.setDate(1, java.sql.Date.valueOf(funcionario.getFnc_dtContratacao()));
+
+            fnc_add.setNull(1, java.sql.Types.DATE);
+
             fnc_add.setDouble(3, funcionario.getFnc_salario());
             fnc_add.setInt(4, funcionario.getFnc_cargo().getCar_id());
             fnc_add.setString(5, funcionario.getPes_cpf());
@@ -55,8 +59,9 @@ public class FuncionarioDAO {
 
         String sql = "UPDATE tb_funcionario SET fnc_dtContratacao = ?, fnc_dtDemissao = ?, fnc_salario = ?, fnc_cargo_id = ? WHERE fnc_id = ?";
         try (PreparedStatement fnc_att = con_fnc.prepareStatement(sql)) {
-            fnc_att.setDate(1, new Date(funcionario.getFnc_dtContratacao().getTime()));
-            fnc_att.setDate(2, new Date(funcionario.getFnc_dtDemissao().getTime()));
+            fnc_att.setDate(1, java.sql.Date.valueOf(funcionario.getFnc_dtContratacao()));
+            fnc_att.setNull(2, java.sql.Types.DATE);
+
             fnc_att.setDouble(3, funcionario.getFnc_salario());
             fnc_att.setInt(4, funcionario.getFnc_cargo().getCar_id());
             fnc_att.setInt(5, funcionario.getFnc_id());
@@ -71,8 +76,11 @@ public class FuncionarioDAO {
 
         String sql = "UPDATE tb_funcionario SET fnc_dtContratacao = ?, fnc_dtDemissao = ?, fnc_salario = ?, fnc_cargo_id = ? WHERE fnc_pes_cpf = ?";
         try (PreparedStatement fnc_att = con_fnc.prepareStatement(sql)) {
-            fnc_att.setDate(1, new Date(funcionario.getFnc_dtContratacao().getTime()));
-            fnc_att.setDate(2, new Date(funcionario.getFnc_dtDemissao().getTime()));
+
+
+            fnc_att.setDate(1, java.sql.Date.valueOf(funcionario.getFnc_dtContratacao()));
+            fnc_att.setDate(2, java.sql.Date.valueOf(funcionario.getFnc_dtDemissao()));
+
             fnc_att.setDouble(3, funcionario.getFnc_salario());
             fnc_att.setInt(4, funcionario.getFnc_cargo().getCar_id());
             fnc_att.setString(5, funcionario.getPes_cpf());
@@ -99,8 +107,8 @@ public class FuncionarioDAO {
                             pessoa.getTelefone(),
                             pessoa.getEndereco(),
                             rs.getInt("fnc_id"),
-                            rs.getDate("fnc_dtContratacao"),
-                            rs.getDate("fnc_dtDemissao"),
+                            rs.getDate("fnc_dtContratacao") != null ? rs.getDate("fnc_dtContratacao").toLocalDate() : null,
+                            rs.getDate("fnc_dtDemissao") != null ? rs.getDate("fnc_dtDemissao").toLocalDate() : null,
                             rs.getDouble("fnc_salario"),
                             cargo,
                             pessoa
@@ -130,8 +138,8 @@ public class FuncionarioDAO {
                             pessoa.getTelefone(),
                             pessoa.getEndereco(),
                             rs.getInt("fnc_id"),
-                            rs.getDate("fnc_dtContratacao"),
-                            rs.getDate("fnc_dtDemissao"),
+                            rs.getDate("fnc_dtContratacao") != null ? rs.getDate("fnc_dtContratacao").toLocalDate() : null,
+                            rs.getDate("fnc_dtDemissao") != null ? rs.getDate("fnc_dtDemissao").toLocalDate() : null,
                             rs.getDouble("fnc_salario"),
                             cargo,
                             pessoa
@@ -162,7 +170,7 @@ public class FuncionarioDAO {
             }
 
             // 3 deleta a pessoa da tabela tb_pessoa
-            pessoaDAO.deletarCPF(cpfPessoa);
+            pessoaDAO.deletarPesCPF(cpfPessoa);
 
             // confirma a transação
             con_fnc.commit();
@@ -177,12 +185,14 @@ public class FuncionarioDAO {
         }
     }
 
-    //deletar funcionario por cpf
     public void deletarFncCpf(String cpf) throws SQLException {
-        String sql = "DELETE FROM tb_funcionario WHERE pes_cpf = ?";
-        try (PreparedStatement fnc_del_cpf = fnc_del_cpf.prepareStatement(sql)) {
+        String sql = "DELETE FROM tb_funcionario WHERE fnc_pes_cpf = ?";
+        try (PreparedStatement fnc_del_cpf = con_fnc.prepareStatement(sql)) {
             fnc_del_cpf.setString(1, cpf);
             fnc_del_cpf.executeUpdate();
         }
     }
+
+
+
 }

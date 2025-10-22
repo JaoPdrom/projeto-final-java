@@ -1,19 +1,20 @@
 package model.vo;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class FuncionarioVO extends PessoaVO{
     private int fnc_id;
-    private Date fnc_dtContratacao;
-    private Date fnc_dtDemissao;
+    private LocalDate fnc_dtContratacao;
+    private LocalDate fnc_dtDemissao;
     private double fnc_salario;
     private CargoVO fnc_cargo;
     private PessoaVO fnc_pes_cpf;
 
     public FuncionarioVO() {}
 
-    public FuncionarioVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, Date pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco, int fnc_id, Date fnc_dtContratacao, Date fnc_dtDemissao, double fnc_salario, CargoVO fnc_cargo, PessoaVO fnc_pes_cpf) {
+    public FuncionarioVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco, int fnc_id, LocalDate fnc_dtContratacao, LocalDate fnc_dtDemissao, double fnc_salario, CargoVO fnc_cargo, PessoaVO fnc_pes_cpf) {
         super(pes_cpf, pes_nome, pes_sexo, pes_dt_nascimento, pes_email, telefone, endereco);
         this.fnc_id = fnc_id;
         this.fnc_dtContratacao = fnc_dtContratacao;
@@ -31,19 +32,19 @@ public class FuncionarioVO extends PessoaVO{
         this.fnc_id = fnc_id;
     }
 
-    public Date getFnc_dtContratacao() {
+    public LocalDate getFnc_dtContratacao() {
         return fnc_dtContratacao;
     }
 
-    public void setFnc_dtContratacao(Date fnc_dtContratacao) {
+    public void setFnc_dtContratacao(LocalDate fnc_dtContratacao) {
         this.fnc_dtContratacao = fnc_dtContratacao;
     }
 
-    public Date getFnc_dtDemissao() {
+    public LocalDate getFnc_dtDemissao() {
         return fnc_dtDemissao;
     }
 
-    public void setFnc_dtDemissao(Date fnc_dtDemissao) {
+    public void setFnc_dtDemissao(LocalDate fnc_dtDemissao) {
         this.fnc_dtDemissao = fnc_dtDemissao;
     }
 

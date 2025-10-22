@@ -1,5 +1,6 @@
 package model.vo;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -7,14 +8,14 @@ public class PessoaVO {
     private String pes_cpf;
     private String pes_nome;
     private SexoVO pes_sexo;
-    private Date pes_dt_nascimento;
+    private LocalDate pes_dt_nascimento;
     private String pes_email;
     private List<TelefoneVO> telefone;
     private List<EnderecoVO> endereco;
 
     public PessoaVO() {}
 
-    public PessoaVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, Date pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco) {
+    public PessoaVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco) {
         this.pes_cpf = pes_cpf;
         this.pes_nome = pes_nome;
         this.pes_sexo = pes_sexo;
@@ -48,11 +49,11 @@ public class PessoaVO {
         this.pes_sexo = pes_sexo;
     }
 
-    public Date getPes_dt_nascimento() {
+    public LocalDate getPes_dt_nascimento() {
         return pes_dt_nascimento;
     }
 
-    public void setPes_dt_nascimento(Date pes_dt_nascimento) {
+    public void setPes_dt_nascimento(LocalDate pes_dt_nascimento) {
         this.pes_dt_nascimento = pes_dt_nascimento;
     }
 

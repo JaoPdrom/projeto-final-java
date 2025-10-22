@@ -28,7 +28,7 @@ public class PessoaDAO {
             pessoa_add.setString(1, pessoa.getPes_cpf());
             pessoa_add.setString(2, pessoa.getPes_nome());
             pessoa_add.setInt(3, pessoa.getPes_sexo().getSex_id());
-            pessoa_add.setDate(4, new Date(pessoa.getPes_dt_nascimento().getTime()));
+            pessoa_add.setDate(4, java.sql.Date.valueOf(pessoa.getPes_dt_nascimento()));
             pessoa_add.setString(5, pessoa.getPes_email());
             pessoa_add.executeUpdate();
         }
@@ -40,7 +40,7 @@ public class PessoaDAO {
         try (PreparedStatement pessoa_att = con_pessoa.prepareStatement(sql)) {
             pessoa_att.setString(1, pessoa.getPes_nome());
             pessoa_att.setInt(2, pessoa.getPes_sexo().getSex_id());
-            pessoa_att.setDate(3, new Date(pessoa.getPes_dt_nascimento().getTime()));
+            pessoa_att.setDate(3, java.sql.Date.valueOf(pessoa.getPes_dt_nascimento()));
             pessoa_att.setString(4, pessoa.getPes_email());
             pessoa_att.setString(5, pessoa.getPes_cpf());
             pessoa_att.executeUpdate();
@@ -51,42 +51,66 @@ public class PessoaDAO {
     public PessoaVO buscarPorCpf(String cpf) throws SQLException {
         String sql = "SELECT * FROM tb_pessoa WHERE pes_cpf = ?";
         PessoaVO pessoa = null;
+
         try (PreparedStatement pessoa_bsc = con_pessoa.prepareStatement(sql)) {
             pessoa_bsc.setString(1, cpf);
+
             try (ResultSet rs = pessoa_bsc.executeQuery()) {
                 if (rs.next()) {
                     pessoa = new PessoaVO();
                     pessoa.setPes_cpf(rs.getString("pes_cpf"));
                     pessoa.setPes_nome(rs.getString("pes_nome"));
                     pessoa.setPes_sexo(sexoDAO.buscarPorId(rs.getInt("pes_sex_id")));
-                    pessoa.setPes_dt_nascimento(rs.getDate("pes_dtNascimento"));
+
+                    // ✅ Conversão correta de java.sql.Date → LocalDate
+                    java.sql.Date dataSql = rs.getDate("pes_dtNascimento");
+                    if (dataSql != null) {
+                        pessoa.setPes_dt_nascimento(dataSql.toLocalDate());
+                    } else {
+                        pessoa.setPes_dt_nascimento(null);
+                    }
+
                     pessoa.setPes_email(rs.getString("pes_email"));
                 }
             }
         }
+
         return pessoa;
     }
+
 
     // busca pessoa por nome
     public List<PessoaVO> buscarPorNome(String nome) throws SQLException {
         String sql = "SELECT * FROM tb_pessoa WHERE pes_nome LIKE ?";
         List<PessoaVO> pessoas = new ArrayList<>();
+
         try (PreparedStatement pessoa_bsc = con_pessoa.prepareStatement(sql)) {
             pessoa_bsc.setString(1, "%" + nome + "%");
+
             try (ResultSet rs = pessoa_bsc.executeQuery()) {
                 while (rs.next()) {
                     PessoaVO pessoa = new PessoaVO();
                     pessoa.setPes_cpf(rs.getString("pes_cpf"));
                     pessoa.setPes_nome(rs.getString("pes_nome"));
                     pessoa.setPes_sexo(sexoDAO.buscarPorId(rs.getInt("pes_sex_id")));
-                    pessoa.setPes_dt_nascimento(rs.getDate("pes_dtNascimento"));
+
+                    // ✅ Correção da conversão de Date para LocalDate
+                    java.sql.Date dataSql = rs.getDate("pes_dtNascimento");
+                    if (dataSql != null) {
+                        pessoa.setPes_dt_nascimento(dataSql.toLocalDate());
+                    } else {
+                        pessoa.setPes_dt_nascimento(null);
+                    }
+
                     pessoa.setPes_email(rs.getString("pes_email"));
                     pessoas.add(pessoa);
                 }
             }
         }
+
         return pessoas;
     }
+
 
     // deletar pessoa
     public void deletar(PessoaVO pessoa) throws SQLException {
@@ -96,6 +120,15 @@ public class PessoaDAO {
             pessoa_del.executeUpdate();
         }
     }
+
+    public void deletarPesCPF(String cpf) throws SQLException {
+        String sql = "DELETE FROM tb_pessoa WHERE pes_cpf = ?";
+        try (PreparedStatement stmt = con_pessoa.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
+        }
+    }
+
 
 
 }
