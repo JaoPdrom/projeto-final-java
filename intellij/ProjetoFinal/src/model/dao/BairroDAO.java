@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BairroDAO {
     private Connection con_bairro;
@@ -19,6 +21,8 @@ public class BairroDAO {
     public BairroDAO(Connection con_bairro) {
         this.con_bairro = con_bairro;
     }
+
+    public BairroDAO() throws SQLException {}
 
     // registrar novo bairro
 
@@ -88,5 +92,21 @@ public class BairroDAO {
             }
         }
         return null;
+    }
+
+    public List<BairroVO> buscarTodosBairros() throws SQLException {
+        List<BairroVO> bairros = new ArrayList<>();
+        String sql = "SELECT bairro_id, bairro_descricao FROM tb_bairro";
+
+        try (PreparedStatement stmt = con_bairro.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                bairros.add(new BairroVO(
+                        rs.getInt("bairro_id"),
+                        rs.getString("bairro_descricao")));
+            }
+        }
+        return bairros;
     }
 }

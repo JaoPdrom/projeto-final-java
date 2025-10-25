@@ -10,17 +10,19 @@ public class PessoaVO {
     private SexoVO pes_sexo;
     private LocalDate pes_dt_nascimento;
     private String pes_email;
+    private Boolean pes_ativo;
     private List<TelefoneVO> telefone;
     private List<EnderecoVO> endereco;
 
     public PessoaVO() {}
 
-    public PessoaVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco) {
+    public PessoaVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, Boolean pes_ativo, List<TelefoneVO> telefone, List<EnderecoVO> endereco) {
         this.pes_cpf = pes_cpf;
         this.pes_nome = pes_nome;
         this.pes_sexo = pes_sexo;
         this.pes_dt_nascimento = pes_dt_nascimento;
         this.pes_email = pes_email;
+        this.pes_ativo = pes_ativo;
         this.telefone = telefone;
         this.endereco = endereco;
     }
@@ -79,5 +81,13 @@ public class PessoaVO {
 
     public void setEndereco(List<EnderecoVO> endereco) {
         this.endereco = endereco;
+    }
+
+    public Boolean getPes_ativo() {
+        return pes_ativo;
+    }
+
+    public void setPes_ativo(Boolean pes_ativo) {
+        this.pes_ativo = pes_ativo;
     }
 }

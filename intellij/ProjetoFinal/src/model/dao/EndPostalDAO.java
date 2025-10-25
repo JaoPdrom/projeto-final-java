@@ -26,19 +26,28 @@ public class EndPostalDAO {
 
     // adicionar novo endereço postal
     public int adicionarNovo(EndPostalVO endPostal) throws SQLException {
-        String sql = "INSERT INTO tb_endPostal (endP_logradouro_id, endP_nomeRua, endP_cep, endP_cid_id, endP_est_sigla, endP_bairro_id) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement endPostal_add = con_endp.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            endPostal_add.setInt(1, endPostal.getEndP_logradouro().getLogradouro_id());
-            endPostal_add.setString(2, endPostal.getEndP_nomeRua());
-            endPostal_add.setString(3, endPostal.getEndP_cep());
-            endPostal_add.setInt(4, endPostal.getEndP_cidade().getCid_id());
-            endPostal_add.setString(5, endPostal.getEndP_estado().getEst_sigla());
-            endPostal_add.setInt(6, endPostal.getEndP_bairro().getBairro_id());
-            endPostal_add.executeUpdate();
+        if (endPostal.getEndP_logradouro() == null
+                || endPostal.getEndP_bairro() == null
+                || endPostal.getEndP_cidade() == null
+                || endPostal.getEndP_estado() == null) {
+            throw new SQLException("EndPostal incompleto: verifique logradouro, bairro, cidade e estado.");
+        }
 
-            try (ResultSet rs = endPostal_add.getGeneratedKeys()) {
+        String sql = "INSERT INTO tb_endpostal (endP_logradouro_id, endP_nomeRua, endP_cep, endP_cid_id, endP_est_sigla, endP_bairro_id) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = con_endp.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, endPostal.getEndP_logradouro().getLogradouro_id());
+            stmt.setString(2, endPostal.getEndP_nomeRua());
+            stmt.setString(3, endPostal.getEndP_cep());
+            stmt.setInt(4, endPostal.getEndP_cidade().getCid_id());
+            stmt.setString(5, endPostal.getEndP_estado().getEst_sigla());
+            stmt.setInt(6, endPostal.getEndP_bairro().getBairro_id());
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    return rs.getInt(1);
+                    int id = rs.getInt(1);
+                    endPostal.setEndP_id(id); // ✅ seta no VO
+                    return id;
                 }
             }
         }

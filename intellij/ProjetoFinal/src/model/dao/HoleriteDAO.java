@@ -43,7 +43,7 @@ public class HoleriteDAO {
         return -1;
     }
 
-    // atualizar holerite por id
+    // atualizarPessoa holerite por id
     public void atualizarPorId(HoleriteVO holerite) throws SQLException {
         String sql = "UPDATE tb_holerite SET holerite_periodo = ?, holerite_valor_liquido = ?, holerite_fnc_id = ?, holerite_infoEmpresa_emp_cnpj = ? WHERE holerite_id = ?";
         try (PreparedStatement holerite_att_id = con_holerite.prepareStatement(sql)) {

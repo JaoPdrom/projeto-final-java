@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SexoDAO {
     private Connection con_sex;
@@ -14,6 +16,8 @@ public class SexoDAO {
     public SexoDAO(Connection con_sex) {
         this.con_sex = con_sex;
     }
+
+    public SexoDAO() throws SQLException {}
 
     // registrar novo sexo
     public int adicionarNovo(SexoVO sexo) throws SQLException {
@@ -79,6 +83,22 @@ public class SexoDAO {
                     sexo.setSex_id(rs.getInt("sex_id"));
                     sexo.setSex_descricao(rs.getString("sex_descricao"));
                 }
+            }
+        }
+        return sexo;
+    }
+
+    public List<SexoVO> buscarTodosSexo() throws SQLException {
+        List<SexoVO> sexo = new ArrayList<>();
+        String sql = "SELECT sex_id, sex_descricao FROM tb_sexo";
+        try (PreparedStatement sex_bsc_id = con_sex.prepareStatement(sql);
+            ResultSet rs = sex_bsc_id.executeQuery()) {
+
+            while (rs.next()) {
+                sexo.add(new SexoVO(
+                        rs.getInt("sex_id"),
+                        rs.getString("sex_descricao")
+                ));
             }
         }
         return sexo;

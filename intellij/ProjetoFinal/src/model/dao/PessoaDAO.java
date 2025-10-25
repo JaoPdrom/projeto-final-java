@@ -1,15 +1,14 @@
 package model.dao;
 
 import model.vo.PessoaVO;
-import model.vo.SexoVO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PessoaDAO {
 
@@ -22,55 +21,129 @@ public class PessoaDAO {
     }
 
     // adicionar nova pessoa
-    public void adicionarNovo(PessoaVO pessoa) throws SQLException {
-        String sql = "INSERT INTO tb_pessoa (pes_cpf, pes_nome, pes_sex_id, pes_dtNascimento, pes_email) VALUES (?, ?, ?, ?, ?)";
+    public void adicionarNovaPessoa(PessoaVO pessoa) throws SQLException {
+        String sql = "INSERT INTO tb_pessoa (pes_cpf, pes_nome, pes_sex_id, pes_dtNascimento, pes_email, pes_ativo) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pessoa_add = con_pessoa.prepareStatement(sql)) {
             pessoa_add.setString(1, pessoa.getPes_cpf());
             pessoa_add.setString(2, pessoa.getPes_nome());
             pessoa_add.setInt(3, pessoa.getPes_sexo().getSex_id());
             pessoa_add.setDate(4, java.sql.Date.valueOf(pessoa.getPes_dt_nascimento()));
             pessoa_add.setString(5, pessoa.getPes_email());
+            pessoa_add.setBoolean(6, pessoa.getPes_ativo());
             pessoa_add.executeUpdate();
         }
     }
 
     // update pessoa por cpf
-    public void atualizar(PessoaVO pessoa) throws SQLException {
-        String sql = "UPDATE tb_pessoa SET pes_nome = ?, pes_sex_id = ?, pes_dtNascimento = ?, pes_email = ? WHERE pes_cpf = ?";
-        try (PreparedStatement pessoa_att = con_pessoa.prepareStatement(sql)) {
-            pessoa_att.setString(1, pessoa.getPes_nome());
-            pessoa_att.setInt(2, pessoa.getPes_sexo().getSex_id());
-            pessoa_att.setDate(3, java.sql.Date.valueOf(pessoa.getPes_dt_nascimento()));
-            pessoa_att.setString(4, pessoa.getPes_email());
-            pessoa_att.setString(5, pessoa.getPes_cpf());
-            pessoa_att.executeUpdate();
+    public void atualizarPessoa(PessoaVO pessoaAtt) throws SQLException {
+        PessoaVO pesAntiga = buscarPesCpf(pessoaAtt.getPes_cpf());
+        if (pesAntiga == null) {
+            throw new SQLException("Pessoa não encontrada para atualizar: " + pessoaAtt.getPes_cpf());
+        }
+
+        StringBuilder sql = new StringBuilder("UPDATE tb_pessoa SET ");
+        List<Object> parametros = new ArrayList<>();
+
+        // CPF normalmente não deve ser alterado, então ignoramos
+        if (!Objects.equals(pessoaAtt.getPes_nome(), pesAntiga.getPes_nome())) {
+            sql.append("pes_nome = ?, ");
+            parametros.add(pessoaAtt.getPes_nome());
+        }
+
+        // sexo (usa ID)
+        if (pessoaAtt.getPes_sexo() != null && pesAntiga.getPes_sexo() != null) {
+            if (!Objects.equals(pessoaAtt.getPes_sexo().getSex_id(), pesAntiga.getPes_sexo().getSex_id())) {
+                sql.append("pes_sex_id = ?, ");
+                parametros.add(pessoaAtt.getPes_sexo().getSex_id());
+            }
+        }
+
+        // data nascimento
+        if (!Objects.equals(pessoaAtt.getPes_dt_nascimento(), pesAntiga.getPes_dt_nascimento())) {
+            sql.append("pes_dtNascimento = ?, ");
+            parametros.add(pessoaAtt.getPes_dt_nascimento());
+        }
+
+        // email
+        if (!Objects.equals(pessoaAtt.getPes_email(), pesAntiga.getPes_email())) {
+            sql.append("pes_email = ?, ");
+            parametros.add(pessoaAtt.getPes_email());
+        }
+
+        // ativo
+        if (pessoaAtt.getPes_ativo() != pesAntiga.getPes_ativo()) {
+            sql.append("pes_ativo = ?, ");
+            parametros.add(pessoaAtt.getPes_ativo() ? 1 : 0);
+        }
+
+        if (parametros.isEmpty()) {
+            System.out.println("⚠️ Nenhuma alteração detectada para CPF " + pessoaAtt.getPes_cpf());
+            return;
+        }
+
+        // Remove última vírgula
+        sql.setLength(sql.length() - 2);
+
+        sql.append(" WHERE pes_cpf = ?");
+        parametros.add(pessoaAtt.getPes_cpf());
+
+        System.out.println("🔧 SQL Gerado: " + sql);
+        System.out.println("🧩 Parâmetros: " + parametros);
+
+        try (PreparedStatement ps = con_pessoa.prepareStatement(sql.toString())) {
+            for (int i = 0; i < parametros.size(); i++) {
+                Object valor = parametros.get(i);
+
+                // Tratar data local
+                if (valor instanceof java.time.LocalDate data) {
+                    ps.setDate(i + 1, java.sql.Date.valueOf(data));
+                } else {
+                    ps.setObject(i + 1, valor);
+                }
+            }
+
+            int linhas = ps.executeUpdate();
+            System.out.println("✅ Linhas afetadas: " + linhas);
+            if (linhas == 0) {
+                throw new SQLException("Nenhuma linha atualizada (CPF não encontrado ou dados idênticos).");
+            }
         }
     }
 
+
     // busca pessoa por cpf
-    public PessoaVO buscarPorCpf(String cpf) throws SQLException {
+    public PessoaVO buscarPesCpf(String cpf) throws SQLException {
         String sql = "SELECT * FROM tb_pessoa WHERE pes_cpf = ?";
         PessoaVO pessoa = null;
 
-        try (PreparedStatement pessoa_bsc = con_pessoa.prepareStatement(sql)) {
-            pessoa_bsc.setString(1, cpf);
+        try (PreparedStatement stmt = con_pessoa.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
 
-            try (ResultSet rs = pessoa_bsc.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     pessoa = new PessoaVO();
                     pessoa.setPes_cpf(rs.getString("pes_cpf"));
                     pessoa.setPes_nome(rs.getString("pes_nome"));
-                    pessoa.setPes_sexo(sexoDAO.buscarPorId(rs.getInt("pes_sex_id")));
+                    pessoa.setPes_email(rs.getString("pes_email"));
 
-                    // ✅ Conversão correta de java.sql.Date → LocalDate
+                    // ✅ Conversão segura de java.sql.Date → LocalDate
                     java.sql.Date dataSql = rs.getDate("pes_dtNascimento");
-                    if (dataSql != null) {
-                        pessoa.setPes_dt_nascimento(dataSql.toLocalDate());
+                    pessoa.setPes_dt_nascimento(dataSql != null ? dataSql.toLocalDate() : null);
+
+                    // ⚠️ Verifica se sexoDAO está inicializado antes de usar
+                    int idSexo = rs.getInt("pes_sex_id");
+                    if (sexoDAO != null && idSexo > 0) {
+                        pessoa.setPes_sexo(sexoDAO.buscarPorId(idSexo));
                     } else {
-                        pessoa.setPes_dt_nascimento(null);
+                        pessoa.setPes_sexo(null);
                     }
 
-                    pessoa.setPes_email(rs.getString("pes_email"));
+                    // Caso exista o campo ativo
+                    try {
+                        pessoa.setPes_ativo(rs.getBoolean("pes_ativo"));
+                    } catch (SQLException ignore) {
+                        // Campo pode não existir na tabela
+                    }
                 }
             }
         }
@@ -79,8 +152,9 @@ public class PessoaDAO {
     }
 
 
+
     // busca pessoa por nome
-    public List<PessoaVO> buscarPorNome(String nome) throws SQLException {
+    public List<PessoaVO> buscarPesNome(String nome) throws SQLException {
         String sql = "SELECT * FROM tb_pessoa WHERE pes_nome LIKE ?";
         List<PessoaVO> pessoas = new ArrayList<>();
 
@@ -112,14 +186,21 @@ public class PessoaDAO {
     }
 
 
+
     // deletar pessoa
-    public void deletar(PessoaVO pessoa) throws SQLException {
-        String sql = "DELETE FROM tb_pessoa WHERE pes_cpf = ?";
-        try (PreparedStatement pessoa_del = con_pessoa.prepareStatement(sql)) {
-            pessoa_del.setString(1, pessoa.getPes_cpf());
-            pessoa_del.executeUpdate();
+    public void deletarPes(PessoaVO pessoa) throws SQLException {
+        String sql = "UPDATE tb_pessoa SET pes_ativo = 0 WHERE pes_cpf = ?";
+
+        try (PreparedStatement ps = con_pessoa.prepareStatement(sql)) {
+            ps.setString(1, pessoa.getPes_cpf());
+            int linhasAfetadas = ps.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Nenhuma pessoa encontrada com o CPF informado: " + pessoa.getPes_cpf());
+            }
         }
     }
+
 
     public void deletarPesCPF(String cpf) throws SQLException {
         String sql = "DELETE FROM tb_pessoa WHERE pes_cpf = ?";

@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EstadoDAO {
     private Connection con_est;
@@ -18,6 +20,8 @@ public class EstadoDAO {
     public EstadoDAO(Connection con_est) throws SQLException {
         this.con_est = con_est;
     }
+
+    public EstadoDAO() throws SQLException {}
 
     // registrar novo estado
 
@@ -94,6 +98,22 @@ public class EstadoDAO {
             }
         }
         return estado;
+    }
+
+    public List<EstadoVO> buscarTodosEstados() throws SQLException{
+        List<EstadoVO> lista = new ArrayList<>();
+        String sql = "SELECT est_sigla, est_descricao FROM tb_estado";
+        try (PreparedStatement ps = con_est.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new EstadoVO(
+                        rs.getString("est_sigla"),
+                        rs.getString("est_descricao")));
+            }
+
+        }
+        return lista;
     }
 
 

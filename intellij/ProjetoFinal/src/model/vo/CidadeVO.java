@@ -3,14 +3,14 @@ package model.vo;
 public class CidadeVO {
     private int cid_id;
     private String cid_descricao;
-    private EstadoVO estado;
+//    private EstadoVO estado;
 
     public CidadeVO() {}
 
-    public CidadeVO(int cid_id, String cid_descricao, EstadoVO estado) {
+    public CidadeVO(int cid_id, String cid_descricao) {
         this.cid_id = cid_id;
         this.cid_descricao = cid_descricao;
-        this.estado = estado;
+//        this.estado = estado;
     }
 
     public int getCid_id() {
@@ -29,11 +29,16 @@ public class CidadeVO {
         this.cid_descricao = cid_descricao;
     }
 
-    public EstadoVO getEstado() {
-        return estado;
-    }
+//    public EstadoVO getEstado() {
+//        return estado;
+//    }
+//
+//    public void setEstado(EstadoVO estado) {
+//        this.estado = estado;
+//    }
 
-    public void setEstado(EstadoVO estado) {
-        this.estado = estado;
+    @Override
+    public String toString() {
+        return cid_descricao;
     }
 }

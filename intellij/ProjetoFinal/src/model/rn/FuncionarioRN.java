@@ -37,7 +37,7 @@ public class FuncionarioRN {
             this.funcionarioDAO = new FuncionarioDAO(conn);
             this.pessoaDAO = new PessoaDAO(conn);
 
-            // 🔹 1️⃣ Validações básicas
+            // 1) Validações
             if (funcionario.getPes_cpf() == null || funcionario.getPes_cpf().isEmpty())
                 throw new Exception("CPF é obrigatório.");
             if (funcionario.getPes_nome() == null || funcionario.getPes_nome().isEmpty())
@@ -45,232 +45,266 @@ public class FuncionarioRN {
             if (funcionario.getPes_sexo() == null || funcionario.getPes_sexo().getSex_id() == 0)
                 throw new Exception("Sexo inválido ou não informado.");
 
-            // 🔹 2️⃣ Verifica se a pessoa já existe no banco
-            PessoaVO pessoaExistente = pessoaDAO.buscarPorCpf(funcionario.getPes_cpf());
-
-            if (pessoaExistente == null) {
-                // Pessoa não existe — então adiciona
-                System.out.println("Inserindo nova pessoa com CPF: " + funcionario.getPes_cpf());
-                pessoaDAO.adicionarNovo(funcionario);
+            // 2) “Upsert” de Pessoa
+            PessoaVO jaExiste = pessoaDAO.buscarPesCpf(funcionario.getPes_cpf());
+            if (jaExiste == null) {
+                // Insere a pessoa uma única vez
+                pessoaDAO.adicionarNovaPessoa(funcionario);
             } else {
-                // Pessoa já existe — opcionalmente atualiza dados
-                System.out.println("Pessoa já existe, atualizando cadastro: " + funcionario.getPes_cpf());
-                pessoaDAO.atualizar(funcionario);
+                // Atualiza dados básicos (opcional)
+                pessoaDAO.atualizarPessoa(funcionario);
             }
 
-            // 🔹 3️⃣ Agora adiciona o funcionário
-            System.out.println("Adicionando funcionário vinculado ao CPF: " + funcionario.getPes_cpf());
-            funcionarioDAO.adicionarNovo(funcionario);
+            FuncionarioVO fncExistente = funcionarioDAO.buscarFuncCpf(funcionario.getPes_cpf());
+            if (fncExistente != null) {
+                throw new Exception("Funcionario ja cadastrado no sistema.");
+            }
+
+            // 3) Agora insere o Funcionário (NÃO pode reinserir Pessoa aqui!)
+            funcionarioDAO.adicionarNovoFuncionario(funcionario);
 
             conn.commit();
-            System.out.println("✅ Transação concluída com sucesso.");
-
         } catch (Exception e) {
             if (conn != null) conn.rollback();
+
+            // erro mais falante no console
+            if (e instanceof java.sql.SQLException sqlEx) {
+                System.err.println("\n=== ERRO SQL DETALHADO ===");
+                System.err.println("Mensagem: " + sqlEx.getMessage());
+                System.err.println("Código: " + sqlEx.getErrorCode());
+                System.err.println("SQLState: " + sqlEx.getSQLState());
+                sqlEx.printStackTrace();
+            } else {
+                e.printStackTrace();
+            }
+
             throw new Exception("Erro ao adicionar funcionário: " + e.getMessage());
         } finally {
             if (conn != null) conn.close();
         }
     }
 
-
-
-
-    // att funcionario
-    public void atualizarFuncionario(FuncionarioVO funcionario, int funcionarioID) throws Exception {
-        Connection conn = null;
+    public void atualizarFuncionario(FuncionarioVO funcionario) throws Exception {
+        Connection conexao = null;
         try {
-            conn = ConexaoDAO.getConexao();
-            conn.setAutoCommit(false);
+            // === 2) Abre conexão e inicia transação ===
+            conexao = ConexaoDAO.getConexao();
+            conexao.setAutoCommit(false);
 
-            this.pessoaDAO = new PessoaDAO(conn);
-            this.logDAO = new LogDAO(conn);
-            this.funcionarioDAO = new FuncionarioDAO(conn);
+            // === 1) Validações básicas ===
+            if (funcionario == null) {
+                throw new Exception("Objeto Funcionário não informado para atualização.");
+            }
 
-            // 1 validacao de campos
             if (funcionario.getPes_cpf() == null || funcionario.getPes_cpf().isEmpty()) {
-                throw new Exception("CPF eh um campo obrigatorio");
+                throw new Exception("CPF do funcionário é obrigatório para atualização.");
             }
+
             if (funcionario.getPes_nome() == null || funcionario.getPes_nome().isEmpty()) {
-                throw new Exception("Nome eh um campo obrigatorio");
+                throw new Exception("Nome do funcionário é obrigatório para atualização.");
             }
 
-            // 2 verifica se o funcionario ja existe
-            FuncionarioVO funcionarioExistente = funcionarioDAO.buscarPorCpf(funcionario.getPes_cpf());
-            if (funcionarioExistente == null) {
-                throw new Exception("Funcionario nao encontrado para atualizacao.");
+            if (funcionario.getFnc_cargo() == null || funcionario.getFnc_cargo().getCar_id() <= 0) {
+                throw new Exception("Cargo inválido para o funcionário.");
             }
 
-            // 3 atualiza os dados na tabela de pessoa e de funcionario
-            pessoaDAO.atualizar(funcionario);
-            funcionarioDAO.atualizar(funcionario);
 
-            // 4 registra a acao no log
-            LogVO log = new LogVO();
-            log.setLog_acao("Funcionario atualizado: " + funcionario.getPes_nome());
-            log.setLog_fnc_id(funcionarioID);
-            log.setLog_dataHora(java.time.LocalDateTime.now());
-            logDAO.registrarAcao(log);
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO(conexao);
 
-            conn.commit();
+            // === 3) Verifica se funcionário existe ===
+            FuncionarioVO existente = funcionarioDAO.buscarFuncCpf(funcionario.getPes_cpf());
+            if (existente == null) {
+                throw new Exception("Funcionário não encontrado para o CPF informado: " + funcionario.getPes_cpf());
+            }
+
+            // === 4) Atualiza dados ===
+            funcionarioDAO.atualizarFuncionario(funcionario);
+            conexao.commit();
+
+            System.out.println("✅ Funcionário atualizado com sucesso.");
+
+        } catch (SQLException e) {
+            if (conexao != null && !conexao.getAutoCommit()) {
+                conexao.rollback();
+            }
+
+            System.err.println("\n=== 💥 ERRO SQL DETALHADO ===");
+            System.err.println("Mensagem: " + e.getMessage());
+            System.err.println("Código de erro: " + e.getErrorCode());
+            System.err.println("Estado SQL: " + e.getSQLState());
+            System.err.println("Classe da exceção: " + e.getClass().getName());
+
+            throw new Exception("Erro ao atualizar funcionário: " + e.getMessage(), e);
 
         } catch (Exception e) {
-            if (conn != null) {
-                conn.rollback();
+            if (conexao != null && !conexao.getAutoCommit()) {
+                conexao.rollback();
             }
-            LogVO logErro = new LogVO();
-            logErro.setLog_acao("ERRO: " + e.getMessage());
-            logErro.setLog_fnc_id(funcionarioID);
-            logErro.setLog_dataHora(java.time.LocalDateTime.now());
-            try {
-                logDAO.registrarAcao(logErro);
-            } catch (SQLException ex) {
-                System.err.println("Erro ao registrar log de erro: " + ex.getMessage());
-            }
-            throw new Exception("Erro ao atualizar funcionario: " + e.getMessage());
+            throw new Exception("Erro ao atualizar funcionário: " + e.getMessage(), e);
+
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.setAutoCommit(true);
+                conexao.close();
             }
         }
     }
 
-    public void deletarFuncionario(String cpf, int funcionarioID) throws Exception {
-        Connection conn = null;
+
+
+    public FuncionarioVO buscarPorCpf(String cpf) throws Exception {
+        Connection conexao = null;
+        conexao.setAutoCommit(false);
+
         try {
-            conn = ConexaoDAO.getConexao();
-            conn.setAutoCommit(false);
-
-            this.pessoaDAO = new PessoaDAO(conn);
-            this.logDAO = new LogDAO(conn);
-            this.funcionarioDAO = new FuncionarioDAO(conn);
-
-            // 1. Validacao de campos
-            if (cpf == null || cpf.isEmpty()) {
-                throw new Exception("CPF eh um campo obrigatorio");
-            }
-
-            // 2. Deleta o funcionario
-            funcionarioDAO.deletarFnc(funcionarioID);
-            pessoaDAO.deletarPesCPF(cpf);
-
-            // 3. Registra a acao no log
-            LogVO log = new LogVO();
-            log.setLog_acao("Funcionario deletado: " + cpf);
-            log.setLog_fnc_id(funcionarioID);
-            log.setLog_dataHora(java.time.LocalDateTime.now());
-            logDAO.registrarAcao(log);
-
-            conn.commit();
-
-        } catch (Exception e) {
-            if (conn != null) {
-                conn.rollback();
-            }
-            LogVO logErro = new LogVO();
-            logErro.setLog_acao("ERRO: " + e.getMessage());
-            logErro.setLog_fnc_id(funcionarioID);
-            logErro.setLog_dataHora(java.time.LocalDateTime.now());
-            try {
-                logDAO.registrarAcao(logErro);
-            } catch (SQLException ex) {
-                System.err.println("Erro ao registrar log de erro: " + ex.getMessage());
-            }
-            throw new Exception("Erro ao deletar funcionario: " + e.getMessage());
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
-            }
-        }
-    }
-
-    // Metodo para buscar um funcionario por CPF
-    public FuncionarioVO buscarFuncionarioPorCpf(String cpf) throws Exception {
-        Connection conn = null;
-        FuncionarioVO funcionario = null;
-        try {
-            conn = ConexaoDAO.getConexao();
-
-            this.funcionarioDAO = new FuncionarioDAO(conn);
+            conexao = ConexaoDAO.getConexao();
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO(conexao);
 
             if (cpf == null || cpf.isEmpty()) {
-                throw new Exception("CPF eh um campo obrigatorio.");
+                throw new Exception("CPF não informado para busca de funcionário.");
             }
 
-            funcionario = funcionarioDAO.buscarPorCpf(cpf);
+            FuncionarioVO funcionario = funcionarioDAO.buscarFuncCpf(cpf);
+
+            if (funcionario == null) {
+                throw new Exception("Funcionário não encontrado para o CPF informado: " + cpf);
+            }
+
             return funcionario;
 
         } catch (SQLException e) {
-            throw new Exception("Erro ao buscar funcionario: " + e.getMessage());
+            System.err.println("\n=== 💥 ERRO SQL DETALHADO ===");
+            System.err.println("Mensagem: " + e.getMessage());
+            System.err.println("Código de erro: " + e.getErrorCode());
+            System.err.println("Estado SQL: " + e.getSQLState());
+            System.err.println("Classe da exceção: " + e.getClass().getName());
+            throw new Exception("Erro ao buscar funcionário por CPF: " + e.getMessage(), e);
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao buscar funcionário: " + e.getMessage(), e);
+
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.close();
             }
         }
     }
 
-    // Metodo para buscar um funcionario por ID
-    public FuncionarioVO buscarFuncionarioPorId(int id) throws Exception {
-        Connection conn = null;
-        FuncionarioVO funcionario = null;
+
+    public List<FuncionarioVO> buscarPorNome(String nome) throws Exception {
+        Connection conexao = null;
+
         try {
-            conn = ConexaoDAO.getConexao();
+            conexao = ConexaoDAO.getConexao();
+            conexao.setAutoCommit(false);
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO(conexao);
 
-            this.funcionarioDAO = new FuncionarioDAO(conn);
-
-            if (id <= 0) {
-                throw new Exception("ID do funcionario eh invalido.");
+            if (nome == null || nome.isEmpty()) {
+                throw new Exception("Nome não informado para busca de funcionários.");
             }
 
-            funcionario = funcionarioDAO.buscarPorId(id);
-            return funcionario;
+            List<FuncionarioVO> funcionarios = funcionarioDAO.buscarFuncNome(nome);
 
-        } catch (SQLException e) {
-            throw new Exception("Erro ao buscar funcionario: " + e.getMessage());
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
+            if (funcionarios == null || funcionarios.isEmpty()) {
+                throw new Exception("Nenhum funcionário encontrado para o nome informado: " + nome);
             }
-        }
-    }
-
-    // Metodo para buscar todos os funcionarios
-    public List<FuncionarioVO> buscarTodosFuncionarios() throws Exception {
-        Connection conn = null;
-        List<FuncionarioVO> funcionarios = null;
-        try {
-            conn = ConexaoDAO.getConexao();
-
-            this.funcionarioDAO = new FuncionarioDAO(conn);
-            funcionarios = (List<FuncionarioVO>) funcionarioDAO.buscarPorCpf("%");
 
             return funcionarios;
 
         } catch (SQLException e) {
-            throw new Exception("Erro ao buscar todos os funcionarios: " + e.getMessage());
+            System.err.println("\n=== 💥 ERRO SQL DETALHADO ===");
+            System.err.println("Mensagem: " + e.getMessage());
+            System.err.println("Código de erro: " + e.getErrorCode());
+            System.err.println("Estado SQL: " + e.getSQLState());
+            System.err.println("Classe da exceção: " + e.getClass().getName());
+            throw new Exception("Erro ao buscar funcionários por nome: " + e.getMessage(), e);
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao buscar funcionários: " + e.getMessage(), e);
+
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fechar a conexao: " + ex.getMessage());
-                }
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+    }
+
+
+    public List<FuncionarioVO> buscarTodos() throws Exception {
+        Connection conexao = null;
+
+        try {
+            conexao = ConexaoDAO.getConexao();
+            conexao.setAutoCommit(false);
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO(conexao);
+
+            List<FuncionarioVO> funcionarios = funcionarioDAO.buscarFuncNome("");
+
+            if (funcionarios == null || funcionarios.isEmpty()) {
+                throw new Exception("Nenhum funcionário encontrado no sistema.");
+            }
+
+            return funcionarios;
+
+        } catch (SQLException e) {
+            System.err.println("\n=== 💥 ERRO SQL DETALHADO ===");
+            System.err.println("Mensagem: " + e.getMessage());
+            System.err.println("Código de erro: " + e.getErrorCode());
+            System.err.println("Estado SQL: " + e.getSQLState());
+            System.err.println("Classe da exceção: " + e.getClass().getName());
+            throw new Exception("Erro ao buscar todos os funcionários: " + e.getMessage(), e);
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao listar funcionários: " + e.getMessage(), e);
+
+        } finally {
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+    }
+
+    public void deletarFuncionario(String cpf) throws Exception {
+        Connection conexao = null;
+
+        try {
+            conexao = ConexaoDAO.getConexao();
+            conexao.setAutoCommit(false);
+
+            this.funcionarioDAO = new FuncionarioDAO(conexao);
+
+            // 1️⃣ valida CPF
+            if (cpf == null || cpf.isEmpty()) {
+                throw new Exception("CPF do funcionário é obrigatório para exclusão.");
+            }
+
+            // 2️⃣ busca funcionário no banco
+            FuncionarioVO funcionario = funcionarioDAO.buscarFuncCpf(cpf);
+            if (funcionario == null) {
+                throw new Exception("Funcionário não encontrado para o CPF informado: " + cpf);
+            }
+
+            // 3️⃣ executa o soft delete
+            funcionarioDAO.deletarFuncionario(funcionario);
+
+            conexao.commit();
+            System.out.println("🟡 Funcionário desativado com sucesso.");
+
+        } catch (SQLException e) {
+            if (conexao != null) conexao.rollback();
+
+            System.err.println("\n=== 💥 ERRO SQL DETALHADO ===");
+            System.err.println("Mensagem: " + e.getMessage());
+            System.err.println("Código de erro: " + e.getErrorCode());
+            System.err.println("Estado SQL: " + e.getSQLState());
+            System.err.println("Classe da exceção: " + e.getClass().getName());
+
+            throw new Exception("Erro ao desativar funcionário: " + e.getMessage(), e);
+
+        } finally {
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.setAutoCommit(true);
+                conexao.close();
             }
         }
     }

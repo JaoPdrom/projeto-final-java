@@ -5,6 +5,7 @@
 
 package model.dao;
 
+import model.vo.PessoaVO;
 import model.vo.TelefoneVO;
 
 import java.sql.Connection;
@@ -22,14 +23,14 @@ public class TelefoneDAO {
         this.con_telefone = con_telefone;
     }
 
-    // Adiciona um novo telefone ao banco de dados.
-    public int adicionarNovo(TelefoneVO telefone) throws SQLException {
+    // Adiciona um novo telefone (garantindo o vínculo com a pessoa)
+    public int adicionarNovo(TelefoneVO telefone, String cpfPessoa) throws SQLException {
         String sql = "INSERT INTO tb_telefone (tel_codPais, tel_ddd, tel_numero, tel_pes_cpf) VALUES (?, ?, ?, ?)";
         try (PreparedStatement tel_add = con_telefone.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             tel_add.setString(1, telefone.getTel_codPais());
             tel_add.setString(2, telefone.getTel_ddd());
             tel_add.setString(3, telefone.getTel_numero());
-            tel_add.setString(4, telefone.getTel_pes_cpf());
+            tel_add.setString(4, cpfPessoa); // <- garante o vínculo com pessoa
             tel_add.executeUpdate();
             try (ResultSet rs = tel_add.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -39,6 +40,23 @@ public class TelefoneDAO {
         }
         return -1;
     }
+
+    public void atualizarTelefoneCpf(String cpf, List<TelefoneVO> telefones) throws SQLException {
+        String sql = "UPDATE tb_telefone SET tel_codPais = ?, tel_ddd = ?, tel_numero = ? WHERE tel_id = ? AND tel_pes_cpf = ?";
+
+        try (PreparedStatement tel_att = con_telefone.prepareStatement(sql)) {
+            for (TelefoneVO tel : telefones) {
+                tel_att.setString(1, tel.getTel_codPais());
+                tel_att.setString(2, tel.getTel_ddd());
+                tel_att.setString(3, tel.getTel_numero());
+                tel_att.setInt(4, tel.getTel_id()); // importante para identificar o telefone específico
+                tel_att.setString(5, cpf);
+                tel_att.executeUpdate();
+            }
+        }
+    }
+
+
 
     // Atualiza um telefone com base no seu ID.
     public void atualizarPorId(TelefoneVO telefone) throws SQLException {
@@ -102,5 +120,9 @@ public class TelefoneDAO {
             }
         }
         return listaTelefones;
+    }
+
+    public void deletarPorCpf(String cpf) throws SQLException {
+
     }
 }

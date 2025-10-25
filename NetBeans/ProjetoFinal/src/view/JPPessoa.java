@@ -11,7 +11,7 @@ package view;
 public class JPPessoa extends javax.swing.JPanel {
 
     /**
-     * Creates new form NewJPanel
+     * Creates new form JPPessoa
      */
     public JPPessoa() {
         initComponents();
@@ -26,420 +26,108 @@ public class JPPessoa extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPBtnNovaPes = new javax.swing.JPanel();
-        jBtnNovaPessoa = new javax.swing.JButton();
-        jPInfoPes = new javax.swing.JPanel();
-        jLNomePes = new javax.swing.JLabel();
-        jTNomePes = new javax.swing.JTextField();
-        jLPesCpf = new javax.swing.JLabel();
-        jLPesDtNascimento = new javax.swing.JLabel();
-        jLPesEmail = new javax.swing.JLabel();
-        jLPesSexo = new javax.swing.JLabel();
-        jTPesCpf = new javax.swing.JTextField();
-        jTPesEmail = new javax.swing.JTextField();
-        jLPesTelefone = new javax.swing.JLabel();
-        jLTelCodPais = new javax.swing.JLabel();
-        jLTelDDD = new javax.swing.JLabel();
-        jLTelNumero = new javax.swing.JLabel();
-        jTTelCodPais = new javax.swing.JTextField();
-        jTTelDDD = new javax.swing.JTextField();
-        jTTelNumero = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jCbPesSexo = new javax.swing.JComboBox<>();
-        jPInfoEnd = new javax.swing.JPanel();
-        jLEndEstado = new javax.swing.JLabel();
-        jLEndCidade = new javax.swing.JLabel();
-        jLEndBairro = new javax.swing.JLabel();
-        jCbEstado = new javax.swing.JComboBox<>();
-        jCbCidade = new javax.swing.JComboBox<>();
-        jCbEndBairro = new javax.swing.JComboBox<>();
-        jLEndLogradouro = new javax.swing.JLabel();
-        jCbEndLogradouro = new javax.swing.JComboBox<>();
-        jLEndCep = new javax.swing.JLabel();
-        jTEndCep = new javax.swing.JTextField();
-        jLEndNomeRua = new javax.swing.JLabel();
-        jTEndNomeRua = new javax.swing.JTextField();
-        jLEndComplemento = new javax.swing.JLabel();
-        jLEndNumero = new javax.swing.JLabel();
-        jTEndNumero = new javax.swing.JTextField();
-        jTEndComplemento = new javax.swing.JTextField();
-        jPAttPes = new javax.swing.JPanel();
-        jBtnAttPes = new javax.swing.JButton();
-        jPDelPes = new javax.swing.JPanel();
-        jBtnDeletarPes = new javax.swing.JButton();
-        jPBtnFecharJnPes = new javax.swing.JPanel();
-        jBtnFecharPes = new javax.swing.JButton();
-        jPBusca = new javax.swing.JPanel();
-        jTBusca = new javax.swing.JTextField();
-        jCbPesTipoBusca = new javax.swing.JComboBox<>();
-        jBtnPesBuscar = new javax.swing.JButton();
-        jPBtnSalvar = new javax.swing.JPanel();
-        jBtnSalvarPes = new javax.swing.JButton();
+        jPBtnPesGerenciar = new javax.swing.JPanel();
+        jBtnPessoaGerenciar = new javax.swing.JButton();
+        jPBtnPessoaFechar = new javax.swing.JPanel();
+        jBtnPessoaFechar = new javax.swing.JButton();
+        jPVendaBusca = new javax.swing.JPanel();
+        jCbVendaTipoBusca = new javax.swing.JComboBox<>();
+        jBtnVendaBuscar = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jSpPessoaBusca = new javax.swing.JScrollPane();
+        jTPessoa = new javax.swing.JTable();
 
-        jPBtnNovaPes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPBtnPesGerenciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jBtnNovaPessoa.setText("Novo");
+        jBtnPessoaGerenciar.setText("Gerenciar");
 
-        javax.swing.GroupLayout jPBtnNovaPesLayout = new javax.swing.GroupLayout(jPBtnNovaPes);
-        jPBtnNovaPes.setLayout(jPBtnNovaPesLayout);
-        jPBtnNovaPesLayout.setHorizontalGroup(
-            jPBtnNovaPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnNovaPesLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPBtnPesGerenciarLayout = new javax.swing.GroupLayout(jPBtnPesGerenciar);
+        jPBtnPesGerenciar.setLayout(jPBtnPesGerenciarLayout);
+        jPBtnPesGerenciarLayout.setHorizontalGroup(
+            jPBtnPesGerenciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPBtnPesGerenciarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtnNovaPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(jBtnPessoaGerenciar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPBtnNovaPesLayout.setVerticalGroup(
-            jPBtnNovaPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnNovaPesLayout.createSequentialGroup()
+        jPBtnPesGerenciarLayout.setVerticalGroup(
+            jPBtnPesGerenciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPBtnPesGerenciarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtnNovaPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(jBtnPessoaGerenciar, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPInfoPes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPBtnPessoaFechar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLNomePes.setText("Nome:");
+        jBtnPessoaFechar.setText("Fechar");
 
-        jTNomePes.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPBtnPessoaFecharLayout = new javax.swing.GroupLayout(jPBtnPessoaFechar);
+        jPBtnPessoaFechar.setLayout(jPBtnPessoaFecharLayout);
+        jPBtnPessoaFecharLayout.setHorizontalGroup(
+            jPBtnPessoaFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPBtnPessoaFecharLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtnPessoaFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPBtnPessoaFecharLayout.setVerticalGroup(
+            jPBtnPessoaFecharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPBtnPessoaFecharLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtnPessoaFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPVendaBusca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jCbVendaTipoBusca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busca por CPF", "Busca por Nome" }));
+
+        jBtnVendaBuscar.setText("Buscar");
+
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomePesActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        jLPesCpf.setText("CPF:");
-
-        jLPesDtNascimento.setText("Data Nascimento:");
-
-        jLPesEmail.setText("Email:");
-
-        jLPesSexo.setText("Sexo:");
-
-        jLPesTelefone.setText("Telefone:");
-
-        jLTelCodPais.setText("Codifo Pais:");
-
-        jLTelDDD.setText("DDD:");
-
-        jLTelNumero.setText("Numero:");
-
-        jCbPesSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPInfoPesLayout = new javax.swing.GroupLayout(jPInfoPes);
-        jPInfoPes.setLayout(jPInfoPesLayout);
-        jPInfoPesLayout.setHorizontalGroup(
-            jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPInfoPesLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPVendaBuscaLayout = new javax.swing.GroupLayout(jPVendaBusca);
+        jPVendaBusca.setLayout(jPVendaBuscaLayout);
+        jPVendaBuscaLayout.setHorizontalGroup(
+            jPVendaBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPVendaBuscaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPInfoPesLayout.createSequentialGroup()
-                        .addComponent(jLNomePes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTNomePes))
-                    .addGroup(jPInfoPesLayout.createSequentialGroup()
-                        .addComponent(jLPesCpf)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTPesCpf))
-                    .addGroup(jPInfoPesLayout.createSequentialGroup()
-                        .addComponent(jLPesEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPesEmail))
-                    .addGroup(jPInfoPesLayout.createSequentialGroup()
-                        .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPInfoPesLayout.createSequentialGroup()
-                                .addComponent(jLPesSexo)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCbPesSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLPesDtNascimento)
-                            .addComponent(jLPesTelefone)
-                            .addGroup(jPInfoPesLayout.createSequentialGroup()
-                                .addComponent(jLTelDDD)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTTelDDD))
-                            .addGroup(jPInfoPesLayout.createSequentialGroup()
-                                .addComponent(jLTelNumero)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTTelNumero))
-                            .addGroup(jPInfoPesLayout.createSequentialGroup()
-                                .addComponent(jLTelCodPais)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTTelCodPais, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 293, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                .addComponent(jCbVendaTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnVendaBuscar)
                 .addContainerGap())
         );
-        jPInfoPesLayout.setVerticalGroup(
-            jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPInfoPesLayout.createSequentialGroup()
+        jPVendaBuscaLayout.setVerticalGroup(
+            jPVendaBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPVendaBuscaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLNomePes)
-                    .addComponent(jTNomePes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLPesCpf)
-                    .addComponent(jTPesCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLPesDtNascimento)
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLPesEmail)
-                    .addComponent(jTPesEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLPesSexo)
-                    .addComponent(jCbPesSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jLPesTelefone)
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLTelCodPais)
-                    .addComponent(jTTelCodPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLTelDDD)
-                    .addComponent(jTTelDDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLTelNumero)
-                    .addComponent(jTTelNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        jPInfoEnd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLEndEstado.setText("Estado:");
-
-        jLEndCidade.setText("Cidade:");
-
-        jLEndBairro.setText("Bairro:");
-
-        jCbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jCbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jCbEndBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLEndLogradouro.setText("Logradouro:");
-
-        jCbEndLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLEndCep.setText("CEP:");
-
-        jTEndCep.setText("Informe o CEP");
-
-        jLEndNomeRua.setText("Nome Rua/Avenida:");
-
-        jTEndNomeRua.setText("Informe o nome da rua/avenida");
-
-        jLEndComplemento.setText("Complemento:");
-
-        jLEndNumero.setText("Numero:");
-
-        jTEndNumero.setText("Informe o numero");
-
-        jTEndComplemento.setText("Informe o complemento");
-
-        javax.swing.GroupLayout jPInfoEndLayout = new javax.swing.GroupLayout(jPInfoEnd);
-        jPInfoEnd.setLayout(jPInfoEndLayout);
-        jPInfoEndLayout.setHorizontalGroup(
-            jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPInfoEndLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPInfoEndLayout.createSequentialGroup()
-                        .addComponent(jLEndNomeRua)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTEndNomeRua, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
-                    .addGroup(jPInfoEndLayout.createSequentialGroup()
-                        .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPInfoEndLayout.createSequentialGroup()
-                                .addComponent(jLEndEstado)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPInfoEndLayout.createSequentialGroup()
-                                .addComponent(jLEndBairro)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCbEndBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPInfoEndLayout.createSequentialGroup()
-                                .addComponent(jLEndLogradouro)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCbEndLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPInfoEndLayout.createSequentialGroup()
-                                    .addComponent(jLEndCep)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTEndCep))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPInfoEndLayout.createSequentialGroup()
-                                    .addComponent(jLEndCidade)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jCbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPInfoEndLayout.createSequentialGroup()
-                        .addComponent(jLEndComplemento)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTEndComplemento))
-                    .addGroup(jPInfoEndLayout.createSequentialGroup()
-                        .addComponent(jLEndNumero)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTEndNumero)))
-                .addContainerGap())
-        );
-        jPInfoEndLayout.setVerticalGroup(
-            jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPInfoEndLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndEstado)
-                    .addComponent(jCbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndCidade)
-                    .addComponent(jCbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndCep)
-                    .addComponent(jTEndCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndNomeRua)
-                    .addComponent(jTEndNomeRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndBairro)
-                    .addComponent(jCbEndBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndLogradouro)
-                    .addComponent(jCbEndLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndNumero)
-                    .addComponent(jTEndNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPInfoEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEndComplemento)
-                    .addComponent(jTEndComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
-        );
-
-        jPAttPes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jBtnAttPes.setText("Atualizar");
-
-        javax.swing.GroupLayout jPAttPesLayout = new javax.swing.GroupLayout(jPAttPes);
-        jPAttPes.setLayout(jPAttPesLayout);
-        jPAttPesLayout.setHorizontalGroup(
-            jPAttPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPAttPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnAttPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPAttPesLayout.setVerticalGroup(
-            jPAttPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPAttPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnAttPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPDelPes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jBtnDeletarPes.setText("Deletar");
-
-        javax.swing.GroupLayout jPDelPesLayout = new javax.swing.GroupLayout(jPDelPes);
-        jPDelPes.setLayout(jPDelPesLayout);
-        jPDelPesLayout.setHorizontalGroup(
-            jPDelPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPDelPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnDeletarPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPDelPesLayout.setVerticalGroup(
-            jPDelPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPDelPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnDeletarPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPBtnFecharJnPes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jBtnFecharPes.setText("Fechar");
-
-        javax.swing.GroupLayout jPBtnFecharJnPesLayout = new javax.swing.GroupLayout(jPBtnFecharJnPes);
-        jPBtnFecharJnPes.setLayout(jPBtnFecharJnPesLayout);
-        jPBtnFecharJnPesLayout.setHorizontalGroup(
-            jPBtnFecharJnPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnFecharJnPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnFecharPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPBtnFecharJnPesLayout.setVerticalGroup(
-            jPBtnFecharJnPesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnFecharJnPesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnFecharPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPBusca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jTBusca.setText("Selecione o tipo de busca");
-
-        jCbPesTipoBusca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busca por CPF", "Busca por Nome" }));
-
-        jBtnPesBuscar.setText("Buscar");
-
-        javax.swing.GroupLayout jPBuscaLayout = new javax.swing.GroupLayout(jPBusca);
-        jPBusca.setLayout(jPBuscaLayout);
-        jPBuscaLayout.setHorizontalGroup(
-            jPBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBuscaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCbPesTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtnPesBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPBuscaLayout.setVerticalGroup(
-            jPBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBuscaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCbPesTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnPesBuscar))
+                .addGroup(jPVendaBuscaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbVendaTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnVendaBuscar)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPBtnSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jBtnSalvarPes.setText("Salvar");
-
-        javax.swing.GroupLayout jPBtnSalvarLayout = new javax.swing.GroupLayout(jPBtnSalvar);
-        jPBtnSalvar.setLayout(jPBtnSalvarLayout);
-        jPBtnSalvarLayout.setHorizontalGroup(
-            jPBtnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnSalvarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnSalvarPes, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPBtnSalvarLayout.setVerticalGroup(
-            jPBtnSalvarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPBtnSalvarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnSalvarPes, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jTPessoa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jSpPessoaBusca.setViewportView(jTPessoa);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -448,21 +136,12 @@ public class JPPessoa extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPVendaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPBtnNovaPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPAttPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPDelPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPBtnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPBtnPesGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPBtnFecharJnPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPInfoPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPInfoEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPBtnPessoaFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpPessoaBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -470,76 +149,31 @@ public class JPPessoa extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPDelPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPBtnNovaPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPAttPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPBtnFecharJnPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPBtnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPBtnPessoaFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPBtnPesGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPVendaBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPInfoPes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPInfoEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addComponent(jSpPessoaBusca)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTNomePesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomePesActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTNomePesActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnAttPes;
-    private javax.swing.JButton jBtnDeletarPes;
-    private javax.swing.JButton jBtnFecharPes;
-    private javax.swing.JButton jBtnNovaPessoa;
-    private javax.swing.JButton jBtnPesBuscar;
-    private javax.swing.JButton jBtnSalvarPes;
-    private javax.swing.JComboBox<String> jCbCidade;
-    private javax.swing.JComboBox<String> jCbEndBairro;
-    private javax.swing.JComboBox<String> jCbEndLogradouro;
-    private javax.swing.JComboBox<String> jCbEstado;
-    private javax.swing.JComboBox<String> jCbPesSexo;
-    private javax.swing.JComboBox<String> jCbPesTipoBusca;
-    private javax.swing.JLabel jLEndBairro;
-    private javax.swing.JLabel jLEndCep;
-    private javax.swing.JLabel jLEndCidade;
-    private javax.swing.JLabel jLEndComplemento;
-    private javax.swing.JLabel jLEndEstado;
-    private javax.swing.JLabel jLEndLogradouro;
-    private javax.swing.JLabel jLEndNomeRua;
-    private javax.swing.JLabel jLEndNumero;
-    private javax.swing.JLabel jLNomePes;
-    private javax.swing.JLabel jLPesCpf;
-    private javax.swing.JLabel jLPesDtNascimento;
-    private javax.swing.JLabel jLPesEmail;
-    private javax.swing.JLabel jLPesSexo;
-    private javax.swing.JLabel jLPesTelefone;
-    private javax.swing.JLabel jLTelCodPais;
-    private javax.swing.JLabel jLTelDDD;
-    private javax.swing.JLabel jLTelNumero;
-    private javax.swing.JPanel jPAttPes;
-    private javax.swing.JPanel jPBtnFecharJnPes;
-    private javax.swing.JPanel jPBtnNovaPes;
-    private javax.swing.JPanel jPBtnSalvar;
-    private javax.swing.JPanel jPBusca;
-    private javax.swing.JPanel jPDelPes;
-    private javax.swing.JPanel jPInfoEnd;
-    private javax.swing.JPanel jPInfoPes;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTBusca;
-    private javax.swing.JTextField jTEndCep;
-    private javax.swing.JTextField jTEndComplemento;
-    private javax.swing.JTextField jTEndNomeRua;
-    private javax.swing.JTextField jTEndNumero;
-    private javax.swing.JTextField jTNomePes;
-    private javax.swing.JTextField jTPesCpf;
-    private javax.swing.JTextField jTPesEmail;
-    private javax.swing.JTextField jTTelCodPais;
-    private javax.swing.JTextField jTTelDDD;
-    private javax.swing.JTextField jTTelNumero;
+    private javax.swing.JButton jBtnPessoaFechar;
+    private javax.swing.JButton jBtnPessoaGerenciar;
+    private javax.swing.JButton jBtnVendaBuscar;
+    private javax.swing.JComboBox<String> jCbVendaTipoBusca;
+    private javax.swing.JPanel jPBtnPesGerenciar;
+    private javax.swing.JPanel jPBtnPessoaFechar;
+    private javax.swing.JPanel jPVendaBusca;
+    private javax.swing.JScrollPane jSpPessoaBusca;
+    private javax.swing.JTable jTPessoa;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

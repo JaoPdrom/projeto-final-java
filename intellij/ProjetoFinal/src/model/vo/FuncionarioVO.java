@@ -14,8 +14,8 @@ public class FuncionarioVO extends PessoaVO{
 
     public FuncionarioVO() {}
 
-    public FuncionarioVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, List<TelefoneVO> telefone, List<EnderecoVO> endereco, int fnc_id, LocalDate fnc_dtContratacao, LocalDate fnc_dtDemissao, double fnc_salario, CargoVO fnc_cargo, PessoaVO fnc_pes_cpf) {
-        super(pes_cpf, pes_nome, pes_sexo, pes_dt_nascimento, pes_email, telefone, endereco);
+    public FuncionarioVO(String pes_cpf, String pes_nome, SexoVO pes_sexo, LocalDate pes_dt_nascimento, String pes_email, Boolean pes_ativo, List<TelefoneVO> telefone, List<EnderecoVO> endereco, int fnc_id, LocalDate fnc_dtContratacao, LocalDate fnc_dtDemissao, double fnc_salario, CargoVO fnc_cargo, PessoaVO fnc_pes_cpf) {
+        super(pes_cpf, pes_nome, pes_sexo, pes_dt_nascimento, pes_email, pes_ativo, telefone, endereco);
         this.fnc_id = fnc_id;
         this.fnc_dtContratacao = fnc_dtContratacao;
         this.fnc_dtDemissao = fnc_dtDemissao;

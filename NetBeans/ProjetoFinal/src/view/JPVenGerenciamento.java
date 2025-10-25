@@ -26,6 +26,9 @@ public class JPVenGerenciamento extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jOptionPane1 = new javax.swing.JOptionPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jBtnVenGenAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -68,6 +71,13 @@ public class JPVenGerenciamento extends javax.swing.JPanel {
         jCbVenGenPedTipoEntrega = new javax.swing.JComboBox<>();
         jBtnVenGenPedFinalizarVenda = new javax.swing.JButton();
         jBtnVenGenPedCancelarVenda = new javax.swing.JButton();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -468,6 +478,8 @@ public class JPVenGerenciamento extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPBtnGenVenFechar;
     private javax.swing.JPanel jPVenGenPdt;
     private javax.swing.JButton jPVenGenPdtAdd;
@@ -478,6 +490,7 @@ public class JPVenGerenciamento extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTVenGenCliente;
     private javax.swing.JTextField jTVenGenPedIdVenda;
     private javax.swing.JTextField jTVenGenPedTotal;

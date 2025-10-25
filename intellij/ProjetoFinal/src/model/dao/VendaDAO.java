@@ -74,7 +74,7 @@ public class VendaDAO {
                     StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
                     TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
 
-                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPesCpf(rs.getString("venda_pes_cpf")));
                     venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
                     venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
                     venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));
@@ -102,7 +102,7 @@ public class VendaDAO {
                     StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
                     TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
 
-                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPesCpf(rs.getString("venda_pes_cpf")));
                     venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
                     venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
                     venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));
@@ -131,7 +131,7 @@ public class VendaDAO {
                     StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
                     TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
 
-                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPesCpf(rs.getString("venda_pes_cpf")));
                     venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
                     venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
                     venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));
@@ -160,7 +160,7 @@ public class VendaDAO {
                     StatusVendaDAO statusVendaDAO = new StatusVendaDAO(con_venda);
                     TipoPagamentoDAO tipoPagamentoDAO = new TipoPagamentoDAO(con_venda);
 
-                    venda.setVenda_pes_cpf(pessoaDAO.buscarPorCpf(rs.getString("venda_pes_cpf")));
+                    venda.setVenda_pes_cpf(pessoaDAO.buscarPesCpf(rs.getString("venda_pes_cpf")));
                     venda.setVenda_func_cpf(funcionarioDAO.buscarPorId(rs.getInt("venda_fnc_id")));
                     venda.setVenda_statusVenda(statusVendaDAO.buscarPorId(rs.getInt("venda_statusVenda")));
                     venda.setVenda_tipoPagamento(tipoPagamentoDAO.buscarPorId(rs.getInt("venda_tipo_pagamento")));

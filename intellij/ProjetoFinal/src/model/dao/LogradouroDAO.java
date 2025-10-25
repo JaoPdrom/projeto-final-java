@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogradouroDAO {
     private Connection con_logradouro;
@@ -19,6 +21,8 @@ public class LogradouroDAO {
     public LogradouroDAO(Connection con_logradouro) {
         this.con_logradouro = con_logradouro;
     }
+
+    public LogradouroDAO() throws SQLException {}
 
     // adicionar novo logradouro
     public int adicionarNovo(LogradouroVO logradouro) throws SQLException {
@@ -88,4 +92,28 @@ public class LogradouroDAO {
         }
         return null;
     }
+
+    public List<LogradouroVO> buscarTodosLogradouros() throws SQLException {
+        List<LogradouroVO> logradouros = new ArrayList<>();
+        String sql = "SELECT logradouro_id, log_descricao FROM tb_logradouro";
+
+        try (PreparedStatement stmt = con_logradouro.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                logradouros.add(new LogradouroVO(
+                        rs.getInt("logradouro_id"),
+                        rs.getString("logradouro_descricao")));
+            }
+        }
+        return logradouros;
+    }
 }
+
+/*
+        carregarEstados();
+        carregarCidades();
+        carregarSexo();
+        carregarBairro();
+        carregarLogradouro();
+ */

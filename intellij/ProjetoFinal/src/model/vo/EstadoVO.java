@@ -26,4 +26,9 @@ public class EstadoVO {
     public void setEst_descricao(String est_descricao) {
         this.est_descricao = est_descricao;
     }
+
+    @Override
+    public String toString() {
+        return est_descricao;
+    }
 }

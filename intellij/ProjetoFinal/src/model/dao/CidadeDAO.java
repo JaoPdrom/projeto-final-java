@@ -10,7 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.vo.CidadeVO;
+import model.vo.EstadoVO;
 
 public class CidadeDAO {
     private Connection con;
@@ -18,6 +22,9 @@ public class CidadeDAO {
     public CidadeDAO(Connection con) {
         this.con = con;
     }
+
+    public CidadeDAO() throws SQLException {}
+
 
     // adicionar cidade
     public int adicionarCidade(CidadeVO cidade) throws SQLException {
@@ -90,4 +97,21 @@ public class CidadeDAO {
         }
         return cidade;
     }
+
+    public List<CidadeVO> buscarTodasCidades() throws SQLException {
+        List<CidadeVO> cidades = new ArrayList<>();
+        String sql = "SELECT cid_id, cid_descricao FROM tb_cidade";
+        try (PreparedStatement cid_bsc_id = con.prepareStatement(sql);
+             ResultSet rs = cid_bsc_id.executeQuery()) {
+
+            while (rs.next()) {
+                cidades.add(new CidadeVO(
+                        rs.getInt("cid_id"),              // ← agora é int
+                        rs.getString("cid_descricao")));  // ← String
+            }
+        }
+        return cidades;
+    }
+
+
 }
