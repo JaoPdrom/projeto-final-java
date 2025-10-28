@@ -10,7 +10,7 @@ public class ConexaoDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Conectando ao banco de dados.");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/db_poo?serverTimezone=UTC", "root", "Nwdcyd71!");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/db_poo?serverTimezone=UTC", "root", "utfprsh");
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
         }
